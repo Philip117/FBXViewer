@@ -1,4 +1,4 @@
-#include <qfiledialog.h>
+ï»¿#include <qfiledialog.h>
 #include <qmessagebox.h>
 #include <iostream>
 #include "../Headers/FBXViewer.h"
@@ -8,9 +8,9 @@ FbxViewer::FbxViewer(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	// ĞÂÊ½»òÀÏÊ½Ğ´·¨¶¼²»¹Ü public/protected/private£¬µ«ÀÏÊ½Ğ´·¨ÒªÇóÉùÃ÷Îª public/protected/private slots
-	connect(ui.action_open, &QAction::triggered, this, &FbxViewer::OpenFbxFile);	// ĞÂÊ½Ğ´·¨
-	//connect(ui.action_open, SIGNAL(triggered()), this, SLOT(OpenFbxFile()));	// ÀÏÊ½Ğ´·¨
+	// æ–°å¼æˆ–è€å¼å†™æ³•éƒ½ä¸ç®¡ public/protected/privateï¼Œä½†è€å¼å†™æ³•è¦æ±‚å£°æ˜ä¸º public/protected/private slots
+	connect(ui.action_open, &QAction::triggered, this, &FbxViewer::OpenFbxFile);	// æ–°å¼å†™æ³•
+	//connect(ui.action_open, SIGNAL(triggered()), this, SLOT(OpenFbxFile()));	// è€å¼å†™æ³•
 	connect(ui.action_exit, &QAction::triggered, this, &FbxViewer::ExitFbxViewer);
 }
 
