@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FBXViewerClass</class>
+ <widget class="QMainWindow" name="FBXViewerClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>591</width>
+    <height>466</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>FBXViever</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <widget class="FileInfo" name="page_fileInfo"/>
+      <widget class="NodeInfo" name="page_nodeInfo"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>591</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_file">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="action_open"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_content">
+    <property name="title">
+     <string>Content</string>
+    </property>
+    <addaction name="action_fileInfo"/>
+    <addaction name="action_nodeInfo"/>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menu_content"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_open">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="action_fileInfo">
+   <property name="text">
+    <string>File Info</string>
+   </property>
+  </action>
+  <action name="action_nodeInfo">
+   <property name="text">
+    <string>Node Info</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>FileInfo</class>
+   <extends>QWidget</extends>
+   <header>../../../../Headers/FileInfo.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>NodeInfo</class>
+   <extends>QWidget</extends>
+   <header>../../../../Headers/NodeInfo.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../FBXViewer.qrc"/>
+ </resources>
+ <connections/>
+</ui>
