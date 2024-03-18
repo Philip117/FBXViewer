@@ -13,8 +13,11 @@ public:
 	~FbxViewer();
 
 private:
-	void OpenFbxFile();
-	void ExitFbxViewer();
+	void OnAction_OpenFbxFile();
+	void OnAction_ExitFbxViewer();
+	void OnAction_ViewFileInfo();
+	void OnAction_ViewNodeInfo();
 
-	Ui::FBXViewerClass ui;
+	Ui::FBXViewerClass mUi;
+	QString mLastFilePath;
 };

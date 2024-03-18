@@ -1,22 +1,63 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>FileInfoClass</class>
- <widget class="QWidget" name="FileInfoClass" >
-  <property name="objectName" >
-   <string notr="true">FileInfoClass</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QWidget" name="FileInfoClass">
+  <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>600</width>
-	<height>400</height>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>FileInfo</string>
-  </property>$centralwidget$
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QListWidget" name="listWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Basic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Animation</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Statistic</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>5</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
  <connections/>
-</UI>
+</ui>
