@@ -20,10 +20,18 @@ FbxViewer::FbxViewer(QWidget* parent)
 	mpManager = nullptr;
 	mpScene = nullptr;
 	Fbx_Common::InitializeManagerAndScene(mpManager, mpScene);
+	mUi.page_fileInfo->SetManager(mpManager);
+	mUi.page_fileInfo->SetScene(mpScene);
+	mUi.page_nodeInfo->SetManager(mpManager);
+	mUi.page_nodeInfo->SetScene(mpScene);
 }
 
 FbxViewer::~FbxViewer()
-{}
+{
+	Fbx_Common::DestroyManager(mpManager);
+	mpManager = nullptr;
+	mpScene = nullptr;
+}
 
 void FbxViewer::OnAction_OpenFbxFile()
 {
@@ -38,8 +46,6 @@ void FbxViewer::OnAction_OpenFbxFile()
 	if (!Fbx_Common::LoadFbxFile(mpManager, mpScene, lFilePath))
 		QMessageBox::information(nullptr, "Error", std::format("LoadFbxFile failed\n{}", lFilePath.c_str()).c_str(),
 			QMessageBox::Yes);
-	else
-		QMessageBox::information(nullptr, "Title", lFilePath.c_str(), QMessageBox::Yes);
 }
 
 void FbxViewer::OnAction_ExitFbxViewer()

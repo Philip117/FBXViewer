@@ -12,6 +12,11 @@ public:
 	NodeInfo(QWidget* parent = nullptr);
 	~NodeInfo();
 
+	void SetManager(FbxManager* pManager);
+	void SetScene(FbxScene* pScene);
+
 private:
 	Ui::NodeInfoClass ui;
+	FbxManager* mpManager;
+	FbxScene* mpScene;
 };

@@ -4,6 +4,11 @@
 
 namespace Fbx_Common
 {
+	void GetSdkVersion(int& major, int& minor, int& revision)
+	{
+		FbxManager::GetFileFormatVersion(major, minor, revision);
+	}
+
 	bool  InitializeManagerAndScene(FbxManager*& pManager, FbxScene*& pScene)
 	{
 		if (pManager || pScene)
@@ -98,6 +103,9 @@ namespace Fbx_Common
 
 	bool  LoadFbxFile(FbxManager* pManager, FbxScene* pScene, const std::string& filePath)
 	{
+		if (!pManager || !pScene)
+			return false;
+
 		FbxImporter* lpImporter = FbxImporter::Create(pManager, "VIRDYN Importer");
 
 		// 初始化加载器
@@ -112,50 +120,6 @@ namespace Fbx_Common
 			return false;
 		lpImporter->Destroy();
 		//delete[] lFilePath;
-
-		return true;
-	}
-
-	bool  SetCoordSystem(FbxScene* const pScene, const FbxAxisSystem::EUpVector& vector_up,
-		const FbxAxisSystem::EFrontVector& vector_front, const FbxAxisSystem::ECoordSystem& coordSystem)
-	{
-		if (!pScene)
-			return false;
-
-		// 坐标系强制转换
-		const FbxAxisSystem lAxisSystem(vector_up, vector_front, coordSystem);
-		lAxisSystem.ConvertScene(pScene);	// 强制转换
-		return true;
-	}
-
-	bool  GetCoordSystem(FbxScene* const pScene, FbxAxisSystem::EUpVector& vector_up, int& sign_up,
-		FbxAxisSystem::EFrontVector& vector_front, int& sign_front, FbxAxisSystem::ECoordSystem& coordSystem)
-	{
-		if (!pScene)
-			return false;
-
-		FbxAxisSystem lAxisSystem = pScene->GetGlobalSettings().GetAxisSystem();
-		vector_up = lAxisSystem.GetUpVector(sign_up);
-		vector_front = lAxisSystem.GetFrontVector(sign_front);
-		coordSystem = lAxisSystem.GetCoorSystem();
-		return true;
-	}
-
-	bool  SetUnit(FbxScene* const pScene, const FbxSystemUnit& unit)
-	{
-		if (!pScene)
-			return false;
-
-		// 长度单位转换
-		FbxGlobalSettings& lGlobalSetting = pScene->GetGlobalSettings();
-		for (const FbxSystemUnit& u : { lGlobalSetting.GetSystemUnit().mm, lGlobalSetting.GetSystemUnit().dm, lGlobalSetting.GetSystemUnit().cm,lGlobalSetting.GetSystemUnit().m,lGlobalSetting.GetSystemUnit().km,lGlobalSetting.GetSystemUnit().Inch,lGlobalSetting.GetSystemUnit().Foot,lGlobalSetting.GetSystemUnit().Mile, lGlobalSetting.GetSystemUnit().Yard })
-		{
-			if (u == unit)
-			{
-				u.ConvertScene(pScene);
-				break;
-			}
-		}
 
 		return true;
 	}
@@ -203,44 +167,6 @@ namespace Fbx_Common
 		lpExporter->Destroy();
 
 		return true;
-	}
-
-	bool  SetTimelineDefaultTimeSpan(FbxScene* pScene, const unsigned int& frame_start, const unsigned int& frame_end, const double& frequency)
-	{
-		if (!pScene)
-			return false;
-
-		FbxTime lTime_start,
-			lTime_end;
-		FbxTime::EMode lTimeMode = GetTimeMode(frequency);
-		FbxTimeSpan lTimeSpan;
-
-		pScene->GetGlobalSettings().SetTimeMode(lTimeMode);
-		pScene->GetGlobalSettings().GetTimelineDefaultTimeSpan(lTimeSpan);
-		lTime_start.SetGlobalTimeMode(lTimeMode);
-		lTime_start.SetFrame(frame_start, lTimeMode);
-		lTime_end.SetGlobalTimeMode(lTimeMode);
-		lTime_end.SetFrame(frame_end, lTimeMode);
-		lTimeSpan.Set(lTime_start, lTime_end);
-		pScene->GetGlobalSettings().SetTimelineDefaultTimeSpan(lTimeSpan);
-
-		return true;
-	}
-
-	inline void  SetTranslation(FbxVector4& translation_fbx, const double translation_vd[3])
-	{
-		for (int i = 0; i < 3; i++)
-			translation_fbx[i] = translation_vd[i];
-		translation_fbx[3] = 0.0f;
-	}
-
-	inline void  SetQuaternion(FbxQuaternion& quaternion_fbx, const double quaternion_vd[3])
-	{
-		//【!】VIRDYN 格式的四元数的 w 在第 0 位，FBX 格式的四元数的 w 在第 3 位
-		quaternion_fbx[0] = quaternion_vd[1];
-		quaternion_fbx[1] = quaternion_vd[2];
-		quaternion_fbx[2] = quaternion_vd[3];
-		quaternion_fbx[3] = quaternion_vd[0];
 	}
 
 	void  TransformFilePath(std::string& filePath)
