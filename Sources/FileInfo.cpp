@@ -9,3 +9,14 @@ FileInfo::FileInfo(QWidget* parent)
 
 FileInfo::~FileInfo()
 {}
+
+
+void FileInfo::SetManager(FbxManager* pManager)
+{
+	mpManager = pManager;
+}
+
+void FileInfo::SetScene(FbxScene* pScene)
+{
+	mpScene = pScene;
+}

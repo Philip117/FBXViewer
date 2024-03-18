@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <fbxsdk.h>
 #include "ui_FBXViewer.h"
 
 
@@ -20,4 +21,6 @@ private:
 
 	Ui::FBXViewerClass mUi;
 	QString mLastFilePath;
+	FbxManager* mpManager;
+	FbxScene* mpScene;
 };
