@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <fbxsdk.h>
 #include "ui_NodeInfo.h"
 
 

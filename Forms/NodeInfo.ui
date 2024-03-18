@@ -38,9 +38,17 @@
       <property name="lineWidth">
        <number>1</number>
       </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
       <column>
        <property name="text">
-        <string>Root</string>
+        <string>Name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Type</string>
        </property>
       </column>
      </widget>

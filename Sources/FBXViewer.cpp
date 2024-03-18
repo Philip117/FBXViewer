@@ -44,8 +44,18 @@ void FbxViewer::OnAction_OpenFbxFile()
 	std::string lFilePath = mLastFilePath.toLocal8Bit().constData();	// 直接 constData() 拿到的是 QChar 类型
 	Fbx_Common::TransformFilePath(lFilePath);
 	if (!Fbx_Common::LoadFbxFile(mpManager, mpScene, lFilePath))
+	{
 		QMessageBox::information(nullptr, "Error", std::format("LoadFbxFile failed\n{}", lFilePath.c_str()).c_str(),
 			QMessageBox::Yes);
+	}
+	else
+	{
+		mUi.page_fileInfo->SetFilePath(lFilePath);
+		if (mUi.stackedWidget->currentIndex() == 0)
+			mUi.page_fileInfo->RefreshUi();
+		//else
+		//	mUi.page_nodeInfo->RefreshUi();
+	}
 }
 
 void FbxViewer::OnAction_ExitFbxViewer()

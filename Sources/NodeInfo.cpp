@@ -6,10 +6,15 @@ NodeInfo::NodeInfo(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	mpManager = nullptr;
+	mpScene = nullptr;
 }
 
 NodeInfo::~NodeInfo()
-{}
+{
+	mpManager = nullptr;
+	mpScene = nullptr;
+}
 
 
 void NodeInfo::SetManager(FbxManager* pManager)
