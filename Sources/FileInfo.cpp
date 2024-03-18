@@ -54,22 +54,22 @@ void FileInfo::RefreshUi_Statistic()
 {
 }
 
+void FileInfo::RefreshData()
+{
+	mFileName = mFilePath.substr(mFilePath.find_last_of("/") + 1, mFilePath.length());
+	QFileInfo lQFileInfo(mFilePath.c_str());
+	mFileSize = lQFileInfo.size() / 1024;
+}
+
 
 void FileInfo::SetFilePath(const std::string& filePath)
 {
 	mFilePath = filePath;
-	mFileName = filePath.substr(filePath.find_last_of("/") + 1, filePath.length());
-	QFileInfo lQFileInfo(filePath.c_str());
-	mFileSize = lQFileInfo.size() / 1024;
 }
 
-void FileInfo::SetManager(FbxManager* pManager)
+void FileInfo::SetManagerAndScene(FbxManager* pManager, FbxScene* pScene)
 {
 	mpManager = pManager;
-}
-
-void FileInfo::SetScene(FbxScene* pScene)
-{
 	mpScene = pScene;
 }
 

@@ -13,14 +13,15 @@ public:
 	FileInfo(QWidget* parent = nullptr);
 	~FileInfo();
 
+
 	void RefreshUi();
 	void	RefreshUi_Basic();
 	void	RefreshUi_Animation();
 	void	RefreshUi_Statistic();
+	void RefreshData();
 
 	void SetFilePath(const std::string& filePath);
-	void SetManager(FbxManager* pManager);
-	void SetScene(FbxScene* pScene);
+	void SetManagerAndScene(FbxManager* pManager, FbxScene* pScene);
 
 private:
 	void OnPressedListItem(const QModelIndex& index);

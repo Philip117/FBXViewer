@@ -2,6 +2,7 @@
 #include <qmessagebox.h>
 #include <iostream>
 #include <format>
+#include <thread>
 #include "../Headers/FBXViewer.h"
 #include "../Headers/Fbx_Common.h"
 
@@ -20,10 +21,8 @@ FbxViewer::FbxViewer(QWidget* parent)
 	mpManager = nullptr;
 	mpScene = nullptr;
 	Fbx_Common::InitializeManagerAndScene(mpManager, mpScene);
-	mUi.page_fileInfo->SetManager(mpManager);
-	mUi.page_fileInfo->SetScene(mpScene);
-	mUi.page_nodeInfo->SetManager(mpManager);
-	mUi.page_nodeInfo->SetScene(mpScene);
+	mUi.page_fileInfo->SetManagerAndScene(mpManager, mpScene);
+	mUi.page_nodeInfo->SetManagerAndScene(mpManager, mpScene);
 }
 
 FbxViewer::~FbxViewer()
@@ -38,8 +37,6 @@ void FbxViewer::OnAction_OpenFbxFile()
 	mLastFilePath = QFileDialog::getOpenFileName(this, "Open FBX File", "C:/", "*.fbx");
 	//qDebug() << lFileName;
 	//QMessageBox::information(nullptr, "Title", lFileName, QMessageBox::Yes);
-	mUi.page_fileInfo->SetManager(mpManager);
-	mUi.page_fileInfo->SetScene(mpScene);
 
 	std::string lFilePath = mLastFilePath.toLocal8Bit().constData();	// 直接 constData() 拿到的是 QChar 类型
 	Fbx_Common::TransformFilePath(lFilePath);
@@ -52,9 +49,19 @@ void FbxViewer::OnAction_OpenFbxFile()
 	{
 		mUi.page_fileInfo->SetFilePath(lFilePath);
 		if (mUi.stackedWidget->currentIndex() == 0)
+		{
+			mUi.page_fileInfo->RefreshData();
 			mUi.page_fileInfo->RefreshUi();
-		//else
-		//	mUi.page_nodeInfo->RefreshUi();
+			std::thread lThread([](NodeInfo* pNodeInfo) {pNodeInfo->RefreshData(); }, mUi.page_nodeInfo);
+			lThread.join();
+		}
+		else
+		{
+			mUi.page_nodeInfo->RefreshData();
+			mUi.page_nodeInfo->RefreshUi();
+			std::thread lThread([](FileInfo* pFileInfo) {pFileInfo->RefreshData(); }, mUi.page_fileInfo);
+			lThread.join();
+		}
 	}
 }
 
