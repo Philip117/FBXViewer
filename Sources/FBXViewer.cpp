@@ -5,7 +5,7 @@
 #include <thread>
 #include "../Headers/FBXViewer.h"
 #include "../Headers/Fbx_Common.h"
-
+#include "../Headers/Waiting.h"
 
 FbxViewer::FbxViewer(QWidget* parent)
 	: QMainWindow(parent)
@@ -23,6 +23,7 @@ FbxViewer::FbxViewer(QWidget* parent)
 	Fbx_Common::InitializeManagerAndScene(mpManager, mpScene);
 	mUi.page_fileInfo->SetManagerAndScene(mpManager, mpScene);
 	mUi.page_nodeInfo->SetManagerAndScene(mpManager, mpScene);
+	mpWaiting = new Waiting(this);
 }
 
 FbxViewer::~FbxViewer()
@@ -30,39 +31,59 @@ FbxViewer::~FbxViewer()
 	Fbx_Common::DestroyManager(mpManager);
 	mpManager = nullptr;
 	mpScene = nullptr;
+	delete mpWaiting;
 }
 
 void FbxViewer::OnAction_OpenFbxFile()
 {
-	mLastFilePath = QFileDialog::getOpenFileName(this, "Open FBX File", "C:/", "*.fbx");
+	std::string lFilePath_std;
+	QString lFilePath_qt;
+	if (mLastFileDir.isEmpty())
+		lFilePath_qt = QFileDialog::getOpenFileName(this, "Open FBX File", "C:/", "*.fbx");
+	else
+		lFilePath_qt = QFileDialog::getOpenFileName(this, "Open FBX File", mLastFileDir, "*.fbx");
+	lFilePath_std = lFilePath_qt.toLocal8Bit().constData();	// 直接 constData() 拿到的是 QChar 类型
+	mLastFileDir = lFilePath_qt.mid(0, lFilePath_qt.lastIndexOf("/"));
+
 	//qDebug() << lFileName;
 	//QMessageBox::information(nullptr, "Title", lFileName, QMessageBox::Yes);
 
-	std::string lFilePath = mLastFilePath.toLocal8Bit().constData();	// 直接 constData() 拿到的是 QChar 类型
-	Fbx_Common::TransformFilePath(lFilePath);
-	if (!Fbx_Common::LoadFbxFile(mpManager, mpScene, lFilePath))
+	mpWaiting->show();
+	Fbx_Common::TransformFilePath(lFilePath_std);
+
+	// 开个线程读 FBX 文件，避免文件太大，读取很久
+	std::thread lThread(&FbxViewer::LoadFbxFile, this, lFilePath_std);
+	lThread.detach();
+}
+
+void FbxViewer::LoadFbxFile(const std::string& filePath)
+{
+	if (!Fbx_Common::LoadFbxFile(mpManager, mpScene, filePath))
 	{
-		QMessageBox::information(nullptr, "Error", std::format("LoadFbxFile failed\n{}", lFilePath.c_str()).c_str(),
+		QMessageBox::information(nullptr, "Error", std::format("LoadFbxFile failed\n{}", filePath.c_str()).c_str(),
 			QMessageBox::Yes);
 	}
 	else
 	{
-		mUi.page_fileInfo->SetFilePath(lFilePath);
+		mUi.page_fileInfo->SetFilePath(filePath);
 		if (mUi.stackedWidget->currentIndex() == 0)
 		{
 			mUi.page_fileInfo->RefreshData();
 			mUi.page_fileInfo->RefreshUi();
-			std::thread lThread([](NodeInfo* pNodeInfo) {pNodeInfo->RefreshData(); }, mUi.page_nodeInfo);
-			lThread.join();
+			//std::thread lThread([](NodeInfo* pNodeInfo) {pNodeInfo->RefreshData(); }, mUi.page_nodeInfo);
+			//lThread.join();
+			mUi.page_nodeInfo->RefreshData();
 		}
 		else
 		{
 			mUi.page_nodeInfo->RefreshData();
 			mUi.page_nodeInfo->RefreshUi();
-			std::thread lThread([](FileInfo* pFileInfo) {pFileInfo->RefreshData(); }, mUi.page_fileInfo);
-			lThread.join();
+			//std::thread lThread([](FileInfo* pFileInfo) {pFileInfo->RefreshData(); }, mUi.page_fileInfo);
+			//lThread.join();
+			mUi.page_fileInfo->RefreshData();
 		}
 	}
+	mpWaiting->close();
 }
 
 void FbxViewer::OnAction_ExitFbxViewer()

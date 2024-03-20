@@ -26,9 +26,12 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
       <column>
        <property name="text">
-        <string notr="true">1</string>
+        <string notr="true"/>
        </property>
       </column>
      </widget>

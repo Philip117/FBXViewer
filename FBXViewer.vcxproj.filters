@@ -31,6 +31,12 @@
     <ClCompile Include="Sources\NodeInfo.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Fbx_Common.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Waiting.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Forms\FileInfo.ui">
@@ -40,6 +46,9 @@
       <Filter>Forms</Filter>
     </QtUic>
     <QtUic Include="Forms\NodeInfo.ui">
+      <Filter>Forms</Filter>
+    </QtUic>
+    <QtUic Include="Forms\Waiting.ui">
       <Filter>Forms</Filter>
     </QtUic>
   </ItemGroup>
@@ -53,6 +62,9 @@
     <QtMoc Include="Headers\NodeInfo.h">
       <Filter>Headers</Filter>
     </QtMoc>
+    <QtMoc Include="Headers\Waiting.h">
+      <Filter>Headers</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -60,5 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FBXViewer.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers\Fbx_Common.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

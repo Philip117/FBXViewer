@@ -104,14 +104,9 @@
      <attribute name="verticalHeaderVisible">
       <bool>false</bool>
      </attribute>
-     <row>
-      <property name="text">
-       <string>0</string>
-      </property>
-     </row>
      <column>
       <property name="text">
-       <string>Attribute Name</string>
+       <string/>
       </property>
       <property name="font">
        <font>
@@ -123,7 +118,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Value / Infomation</string>
+       <string/>
       </property>
      </column>
     </widget>

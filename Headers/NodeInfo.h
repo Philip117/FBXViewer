@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include <fbxsdk.h>
+#include <map>
 #include "ui_NodeInfo.h"
 
 
@@ -22,8 +23,12 @@ public:
 	void SetManagerAndScene(FbxManager* pManager, FbxScene* pScene);
 
 private:
+	void OnPressedTreeItem(const QModelIndex& index);
+	void InsertRow(const std::string& attribute, const std::string& value);
+
 	Ui::NodeInfoClass mUi;
 	FbxManager* mpManager;
 	FbxScene* mpScene;
 	FbxNode* mpRootNode;
+	std::map<QTreeWidgetItem*, FbxNode*> mItemToNode;
 };

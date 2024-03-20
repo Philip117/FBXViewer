@@ -1,4 +1,4 @@
-#include <string>
+﻿#include <string>
 #include <qfileinfo.h>
 #include "../Headers/FileInfo.h"
 
@@ -9,6 +9,7 @@ FileInfo::FileInfo(QWidget* parent)
 	mUi.setupUi(this);
 	mpManager = nullptr;
 	mpScene = nullptr;
+	mFileSize = 0;
 
 	connect(mUi.listWidget, &QListWidget::pressed, this, &FileInfo::OnPressedListItem);
 }
@@ -57,8 +58,8 @@ void FileInfo::RefreshUi_Statistic()
 void FileInfo::RefreshData()
 {
 	mFileName = mFilePath.substr(mFilePath.find_last_of("/") + 1, mFilePath.length());
-	QFileInfo lQFileInfo(mFilePath.c_str());
-	mFileSize = lQFileInfo.size() / 1024;
+	QFileInfo lFileInfo(mFilePath.c_str());
+	mFileSize = lFileInfo.size() / 1024;
 }
 
 

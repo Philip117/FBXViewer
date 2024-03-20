@@ -68,13 +68,16 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.4\include;%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.4\include;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FBXSDK_SHARED;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.4\lib\vs2022\x64\debug;</AdditionalLibraryDirectories>
       <AdditionalDependencies>libfbxsdk.lib;%(AdditionalDependencies);$(Qt_LIBS_)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(SolutionDir)\Forms\Waiting.gif $(SolutionDir)$(Platform)\$(Configuration)\Waiting.gif</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -106,10 +109,12 @@
     <ClCompile Include="Sources\FileInfo.cpp" />
     <ClCompile Include="Sources\main.cpp" />
     <ClCompile Include="Sources\NodeInfo.cpp" />
+    <ClCompile Include="Sources\Waiting.cpp" />
     <QtRcc Include="FBXViewer.qrc" />
     <QtUic Include="Forms\FBXViewer.ui" />
     <QtUic Include="Forms\FileInfo.ui" />
     <QtUic Include="Forms\NodeInfo.ui" />
+    <QtUic Include="Forms\Waiting.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Headers\FileInfo.h" />
@@ -126,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Fbx_Common.h" />
+    <QtMoc Include="Headers\Waiting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
