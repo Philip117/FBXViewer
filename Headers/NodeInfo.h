@@ -15,9 +15,8 @@ public:
 	~NodeInfo();
 
 	void RefreshUi();
-	void	RefreshUi_Basic();
-	void	RefreshUi_Animation();
-	void	RefreshUi_Statistic();
+	void	RefreshUi_TreeWidget();
+	void	RefreshUi_TableWidget();
 	void RefreshData();
 
 	void SetManagerAndScene(FbxManager* pManager, FbxScene* pScene);

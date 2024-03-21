@@ -1,5 +1,5 @@
 ﻿#include <Windows.h>
-#include "../Headers/Fbx_Common.h"
+#include "../Headers/FBX_Common.h"
 
 
 namespace Fbx_Common

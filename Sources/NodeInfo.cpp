@@ -1,6 +1,7 @@
 ﻿#include <fbxsdk.h>
 #include <queue>
 #include "../Headers/NodeInfo.h"
+#include "../Headers/FBX_EnumTransformation.h"
 
 
 NodeInfo::NodeInfo(QWidget* parent)
@@ -23,6 +24,12 @@ NodeInfo::~NodeInfo()
 
 void NodeInfo::RefreshUi()
 {
+	RefreshUi_TreeWidget();
+	RefreshUi_TreeWidget();
+}
+
+void NodeInfo::RefreshUi_TreeWidget()
+{
 	int lCount = mUi.treeWidget->topLevelItemCount();
 	// 直接 clear() 会奔溃，需要手动释放树节点的内存
 	if (mUi.treeWidget->topLevelItemCount() > 0)
@@ -35,6 +42,7 @@ void NodeInfo::RefreshUi()
 	FbxNode* lpNode = nullptr;
 	QTreeWidgetItem* lpItem = nullptr,
 		* lpItem_child = nullptr;
+	std::string lNodeName;
 
 	lpNode = mpRootNode;
 	lpItem = new QTreeWidgetItem();
@@ -49,6 +57,12 @@ void NodeInfo::RefreshUi()
 		lpItem = std::get<1>(lNode);
 		mItemToNode.insert(std::make_pair(lpItem, lpNode));
 		lpItem->setText(0, QCoreApplication::translate("NodeInfoClass", lpNode->GetName(), nullptr));
+
+		lNodeName = lpNode->GetName();
+		std::transform(lNodeName.begin(), lNodeName.end(), lNodeName.begin(), ::tolower);
+		if (lNodeName.find("hip") != std::string::npos)
+			lpItem->setForeground(0, QBrush(QColor("blue")));
+
 		for (int i = 0; i < lpNode->GetChildCount(); i++)
 		{
 			lpItem_child = new QTreeWidgetItem();
@@ -58,20 +72,41 @@ void NodeInfo::RefreshUi()
 	}
 }
 
-void NodeInfo::RefreshUi_Basic()
+void NodeInfo::RefreshUi_TableWidget()
 {
-}
+	FbxNode* lpNode = mItemToNode[mUi.treeWidget->currentItem()];
+	mUi.tableWidget->clear();
+	mUi.tableWidget->setRowCount(0);
+	if (lpNode)
+	{
+		FbxNodeAttribute* lpAttribute = lpNode->GetNodeAttribute();
+		mUi.tableWidget->clear();
+		InsertRow("Node Name:", lpNode->GetName());
+		if (lpAttribute)
+		{
+			FbxNodeAttribute::EType lNodeType;
+			lNodeType = lpAttribute->GetAttributeType();
+			InsertRow("Node Type:", Fbx_EnumTransformation::ENodeTypeToString(lNodeType));
+			//InsertRow("Node Type:", lpAttribute->GetTypeName());
 
-void NodeInfo::RefreshUi_Animation()
-{
-}
+			std::string lNodeName = lpNode->GetName();
+			std::transform(lNodeName.begin(), lNodeName.end(), lNodeName.begin(), ::tolower);
+			if (lNodeName.find("hip") != std::string::npos && lNodeType != FbxNodeAttribute::EType::eSkeleton)
+				mUi.tableWidget->item(1, 1)->setForeground(QBrush(QColor("red")));
 
-void NodeInfo::RefreshUi_Statistic()
-{
+			if (lNodeType == FbxNodeAttribute::EType::eSkeleton)
+			{
+				FbxSkeleton* lpSkeleton = lpNode->GetSkeleton();
+				FbxSkeleton::EType lSkeletonType = lpSkeleton->GetSkeletonType();
+				InsertRow("Skeleton Type:", Fbx_EnumTransformation::ESkeletonTypeToString(lSkeletonType));
+			}
+		}
+	}
 }
 
 void NodeInfo::RefreshData()
 {
+	mpRootNode = mpScene->GetRootNode();
 }
 
 void NodeInfo::SetManagerAndScene(FbxManager* pManager, FbxScene* pScene)
@@ -82,10 +117,7 @@ void NodeInfo::SetManagerAndScene(FbxManager* pManager, FbxScene* pScene)
 
 void NodeInfo::OnPressedTreeItem(const QModelIndex& index)
 {
-	FbxNode* lpNode = mItemToNode[mUi.treeWidget->currentItem()];
-	InsertRow("Node Name:", lpNode->GetName());
-	if (lpNode->GetNodeAttribute())
-		InsertRow("Node Name:", lpNode->GetNodeAttribute()->GetA);
+	RefreshUi_TableWidget();
 }
 
 void NodeInfo::InsertRow(const std::string& attribute, const std::string& value)

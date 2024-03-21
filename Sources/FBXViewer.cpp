@@ -4,7 +4,7 @@
 #include <format>
 #include <thread>
 #include "../Headers/FBXViewer.h"
-#include "../Headers/Fbx_Common.h"
+#include "../Headers/FBX_Common.h"
 #include "../Headers/Waiting.h"
 
 FbxViewer::FbxViewer(QWidget* parent)
@@ -42,18 +42,22 @@ void FbxViewer::OnAction_OpenFbxFile()
 		lFilePath_qt = QFileDialog::getOpenFileName(this, "Open FBX File", "C:/", "*.fbx");
 	else
 		lFilePath_qt = QFileDialog::getOpenFileName(this, "Open FBX File", mLastFileDir, "*.fbx");
-	lFilePath_std = lFilePath_qt.toLocal8Bit().constData();	// 直接 constData() 拿到的是 QChar 类型
-	mLastFileDir = lFilePath_qt.mid(0, lFilePath_qt.lastIndexOf("/"));
 
-	//qDebug() << lFileName;
-	//QMessageBox::information(nullptr, "Title", lFileName, QMessageBox::Yes);
+	if (lFilePath_qt != nullptr)
+	{
+		lFilePath_std = lFilePath_qt.toLocal8Bit().constData();	// 直接 constData() 拿到的是 QChar 类型
+		mLastFileDir = lFilePath_qt.mid(0, lFilePath_qt.lastIndexOf("/"));
 
-	mpWaiting->show();
-	Fbx_Common::TransformFilePath(lFilePath_std);
+		//qDebug() << lFileName;
+		//QMessageBox::information(nullptr, "Title", lFileName, QMessageBox::Yes);
 
-	// 开个线程读 FBX 文件，避免文件太大，读取很久
-	std::thread lThread(&FbxViewer::LoadFbxFile, this, lFilePath_std);
-	lThread.detach();
+		mpWaiting->show();
+		Fbx_Common::TransformFilePath(lFilePath_std);
+
+		// 开个线程读 FBX 文件，避免文件太大，读取很久
+		std::thread lThread(&FbxViewer::LoadFbxFile, this, lFilePath_std);
+		lThread.detach();
+	}
 }
 
 void FbxViewer::LoadFbxFile(const std::string& filePath)
@@ -94,9 +98,11 @@ void FbxViewer::OnAction_ExitFbxViewer()
 void FbxViewer::OnAction_ViewFileInfo()
 {
 	mUi.stackedWidget->setCurrentWidget(mUi.page_fileInfo);
+	mUi.page_fileInfo->RefreshUi();
 }
 
 void FbxViewer::OnAction_ViewNodeInfo()
 {
 	mUi.stackedWidget->setCurrentWidget(mUi.page_nodeInfo);
+	mUi.page_nodeInfo->RefreshUi();
 }

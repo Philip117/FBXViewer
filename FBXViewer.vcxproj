@@ -105,7 +105,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Sources\FBXViewer.cpp" />
-    <ClCompile Include="Sources\Fbx_Common.cpp" />
+    <ClCompile Include="Sources\FBX_Common.cpp" />
+    <ClCompile Include="Sources\FBX_EnumTransformation.cpp" />
     <ClCompile Include="Sources\FileInfo.cpp" />
     <ClCompile Include="Sources\main.cpp" />
     <ClCompile Include="Sources\NodeInfo.cpp" />
@@ -130,7 +131,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Fbx_Common.h" />
+    <ClInclude Include="Headers\FBX_Common.h" />
+    <ClInclude Include="Headers\FBX_EnumTransformation.h" />
     <QtMoc Include="Headers\Waiting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

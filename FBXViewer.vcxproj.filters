@@ -31,10 +31,13 @@
     <ClCompile Include="Sources\NodeInfo.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Fbx_Common.cpp">
+    <ClCompile Include="Sources\FBX_Common.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Waiting.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\FBX_EnumTransformation.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,7 +77,10 @@
     <QtRcc Include="FBXViewer.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Fbx_Common.h">
+    <ClInclude Include="Headers\FBX_Common.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\FBX_EnumTransformation.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
