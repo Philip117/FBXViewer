@@ -2,6 +2,7 @@
 #include <queue>
 #include "../Headers/NodeInfo.h"
 #include "../Headers/FBX_EnumTransformation.h"
+#include "../Headers/Fbx_Extraction.h"
 
 
 NodeInfo::NodeInfo(QWidget* parent)
@@ -25,7 +26,7 @@ NodeInfo::~NodeInfo()
 void NodeInfo::RefreshUi()
 {
 	RefreshUi_TreeWidget();
-	RefreshUi_TreeWidget();
+	RefreshUi_TableWidget();
 }
 
 void NodeInfo::RefreshUi_TreeWidget()
@@ -43,6 +44,7 @@ void NodeInfo::RefreshUi_TreeWidget()
 	QTreeWidgetItem* lpItem = nullptr,
 		* lpItem_child = nullptr;
 	std::string lNodeName;
+	std::vector<FbxNode*> lModelRoots = Fbx_Extraction::GetModelRoots(mpScene);
 
 	lpNode = mpRootNode;
 	lpItem = new QTreeWidgetItem();
@@ -62,6 +64,11 @@ void NodeInfo::RefreshUi_TreeWidget()
 		std::transform(lNodeName.begin(), lNodeName.end(), lNodeName.begin(), ::tolower);
 		if (lNodeName.find("hip") != std::string::npos)
 			lpItem->setForeground(0, QBrush(QColor("blue")));
+		for (FbxNode* pNode : lModelRoots)
+		{
+			if (lpNode == pNode)
+				lpItem->setForeground(0, QBrush(QColor("purple")));
+		}
 
 		for (int i = 0; i < lpNode->GetChildCount(); i++)
 		{

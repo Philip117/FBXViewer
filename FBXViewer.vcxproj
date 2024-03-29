@@ -19,7 +19,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4A3B4D88-E697-45C8-B621-17E35646EBD6}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.20348.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.22621.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.20348.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
@@ -73,10 +73,11 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.4\lib\vs2022\x64\debug;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfbxsdk.lib;%(AdditionalDependencies);$(Qt_LIBS_)</AdditionalDependencies>
+      <AdditionalDependencies>libfbxsdk.lib;$(Qt_LIBS_);%(AdditionalDependencies);</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)\Forms\Waiting.gif $(SolutionDir)$(Platform)\$(Configuration)\Waiting.gif</Command>
+      <Message>copy $(SolutionDir)\Forms\Waiting.gif $(SolutionDir)$(Platform)\$(Configuration)\Waiting.gif</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -107,6 +108,7 @@
     <ClCompile Include="Sources\FBXViewer.cpp" />
     <ClCompile Include="Sources\FBX_Common.cpp" />
     <ClCompile Include="Sources\FBX_EnumTransformation.cpp" />
+    <ClCompile Include="Sources\Fbx_Extraction.cpp" />
     <ClCompile Include="Sources\FileInfo.cpp" />
     <ClCompile Include="Sources\main.cpp" />
     <ClCompile Include="Sources\NodeInfo.cpp" />
@@ -133,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="Headers\FBX_Common.h" />
     <ClInclude Include="Headers\FBX_EnumTransformation.h" />
+    <ClInclude Include="Headers\Fbx_Extraction.h" />
     <QtMoc Include="Headers\Waiting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,7 @@
 ﻿#include <string>
 #include <qfileinfo.h>
 #include "../Headers/FileInfo.h"
+#include "../Headers/Fbx_Extraction.h"
 
 
 FileInfo::FileInfo(QWidget* parent)
@@ -48,11 +49,18 @@ void FileInfo::RefreshUi_Basic()
 
 void FileInfo::RefreshUi_Animation()
 {
-	InsertRow("aaafa", "bbbad");
+	InsertRow("Stack Count:", std::to_string(mpScene->GetSrcObjectCount<FbxAnimStack>()));
+	InsertRow("Layer Count:", std::to_string(mpScene->GetSrcObjectCount<FbxAnimLayer>()));
 }
 
 void FileInfo::RefreshUi_Statistic()
 {
+	InsertRow("Stack Count:", std::to_string(mpScene->GetSrcObjectCount<FbxAnimStack>()));
+	InsertRow("Layer Count:", std::to_string(mpScene->GetSrcObjectCount<FbxAnimLayer>()));
+	InsertRow("Node Count:", std::to_string(mpScene->GetSrcObjectCount<FbxNode>()));
+	InsertRow("Mesh Count:", std::to_string(mpScene->GetSrcObjectCount<FbxMesh>()));
+	InsertRow("Blend Shape Count:", std::to_string(mpScene->GetSrcObjectCount<FbxBlendShape>()));
+	InsertRow("Model Count:", std::to_string(Fbx_Extraction::GetModelRoots(mpScene).size()));
 }
 
 void FileInfo::RefreshData()

@@ -40,6 +40,9 @@
     <ClCompile Include="Sources\FBX_EnumTransformation.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Fbx_Extraction.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Forms\FileInfo.ui">
@@ -81,6 +84,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Headers\FBX_EnumTransformation.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Fbx_Extraction.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
