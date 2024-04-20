@@ -1,78 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
-    </Filter>
-    <Filter Include="Sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Forms">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Sources\FileInfo.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\main.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\FBXViewer.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\NodeInfo.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\FBX_Common.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Waiting.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\FBX_EnumTransformation.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Fbx_Extraction.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="Forms\FileInfo.ui">
-      <Filter>Forms</Filter>
-    </QtUic>
-    <QtUic Include="Forms\FBXViewer.ui">
-      <Filter>Forms</Filter>
-    </QtUic>
-    <QtUic Include="Forms\NodeInfo.ui">
-      <Filter>Forms</Filter>
-    </QtUic>
-    <QtUic Include="Forms\Waiting.ui">
-      <Filter>Forms</Filter>
-    </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Headers\FileInfo.h">
-      <Filter>Headers</Filter>
-    </QtMoc>
-    <QtMoc Include="Headers\FBXViewer.h">
-      <Filter>Headers</Filter>
-    </QtMoc>
-    <QtMoc Include="Headers\NodeInfo.h">
-      <Filter>Headers</Filter>
-    </QtMoc>
-    <QtMoc Include="Headers\Waiting.h">
-      <Filter>Headers</Filter>
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
     <None Include=".gitignore" />
     <None Include="README.md" />
   </ItemGroup>
@@ -80,14 +8,64 @@
     <QtRcc Include="FBXViewer.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\FBX_Common.h">
-      <Filter>Headers</Filter>
+    <Filter Include="MainWindow">
+      <UniqueIdentifier>{e71c1b6b-3344-4d4c-97d9-1c7dba939202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WaitingWidget">
+      <UniqueIdentifier>{b4475b05-2af5-4aef-953a-27d426468327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{839a05d7-f6ef-4efa-a3fb-079cf632e8a5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainWindow\MainWindow.cpp">
+      <Filter>MainWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="WaitingWidget\WaitingWidget.cpp">
+      <Filter>WaitingWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\FBX_Base.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\FBX_EnumTransformation.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\FBX_Extraction.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MainWindow\MainWindow.h">
+      <Filter>MainWindow</Filter>
+    </QtMoc>
+    <QtMoc Include="WaitingWidget\WaitingWidget.h">
+      <Filter>WaitingWidget</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="MainWindow\MainWindow.ui">
+      <Filter>MainWindow</Filter>
+    </QtUic>
+    <QtUic Include="WaitingWidget\WaitingWidget.ui">
+      <Filter>WaitingWidget</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="WaitingWidget\Waiting.gif">
+      <Filter>WaitingWidget</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Tools\FBX_Base.h">
+      <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\FBX_EnumTransformation.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Tools\FBX_EnumTransformation.h">
+      <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Fbx_Extraction.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="Tools\FBX_Extraction.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -37,7 +37,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.6.2_msvc2019_64</QtInstall>
+    <QtInstall>6.7.0_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -68,16 +68,18 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.4\include;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\include;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FBXSDK_SHARED;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.4\lib\vs2022\x64\debug;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\lib\x64\debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>libfbxsdk.lib;$(Qt_LIBS_);%(AdditionalDependencies);</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\Forms\Waiting.gif $(SolutionDir)$(Platform)\$(Configuration)\Waiting.gif</Command>
-      <Message>copy $(SolutionDir)\Forms\Waiting.gif $(SolutionDir)$(Platform)\$(Configuration)\Waiting.gif</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -105,38 +107,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Sources\FBXViewer.cpp" />
-    <ClCompile Include="Sources\FBX_Common.cpp" />
-    <ClCompile Include="Sources\FBX_EnumTransformation.cpp" />
-    <ClCompile Include="Sources\Fbx_Extraction.cpp" />
-    <ClCompile Include="Sources\FileInfo.cpp" />
-    <ClCompile Include="Sources\main.cpp" />
-    <ClCompile Include="Sources\NodeInfo.cpp" />
-    <ClCompile Include="Sources\Waiting.cpp" />
     <QtRcc Include="FBXViewer.qrc" />
-    <QtUic Include="Forms\FBXViewer.ui" />
-    <QtUic Include="Forms\FileInfo.ui" />
-    <QtUic Include="Forms\NodeInfo.ui" />
-    <QtUic Include="Forms\Waiting.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Headers\FileInfo.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Headers\FBXViewer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Headers\NodeInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\FBX_Common.h" />
-    <ClInclude Include="Headers\FBX_EnumTransformation.h" />
-    <ClInclude Include="Headers\Fbx_Extraction.h" />
-    <QtMoc Include="Headers\Waiting.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainWindow\MainWindow.cpp" />
+    <ClCompile Include="Tools\FBX_Base.cpp" />
+    <ClCompile Include="Tools\FBX_EnumTransformation.cpp" />
+    <ClCompile Include="Tools\FBX_Extraction.cpp" />
+    <ClCompile Include="WaitingWidget\WaitingWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MainWindow\MainWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="MainWindow\MainWindow.ui" />
+    <QtUic Include="WaitingWidget\WaitingWidget.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="WaitingWidget\Waiting.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="WaitingWidget\WaitingWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Tools\FBX_Base.h" />
+    <ClInclude Include="Tools\FBX_EnumTransformation.h" />
+    <ClInclude Include="Tools\FBX_Extraction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

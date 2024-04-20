@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <widget class="QTreeWidget" name="treeWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="headerVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Root Node</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="tabPosition">
+        <enum>QTabWidget::TabPosition::East</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tab_fileInfo">
+        <attribute name="title">
+         <string>Node Attributes</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_nodeName">
+           <property name="styleSheet">
+            <string notr="true">font: 700 10pt &quot;Microsoft YaHei UI&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Node Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QFormLayout" name="formLayout">
+           <property name="sizeConstraint">
+            <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+           </property>
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::FieldGrowthPolicy::AllNonFixedFieldsGrow</enum>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Node Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit_nodeType">
+             <property name="text">
+              <string notr="true"/>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit_2"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_file">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="action_open"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_info">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="action_about"/>
+   </widget>
+   <widget class="QMenu" name="menu_statistic">
+    <property name="title">
+     <string>Info</string>
+    </property>
+    <addaction name="action_statistic"/>
+   </widget>
+   <widget class="QMenu" name="menu_settings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="action_settings"/>
+   </widget>
+   <addaction name="menu_file"/>
+   <addaction name="menu_statistic"/>
+   <addaction name="menu_settings"/>
+   <addaction name="menu_info"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_open">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>About FBXViewer</string>
+   </property>
+  </action>
+  <action name="action_statistic">
+   <property name="text">
+    <string>Statistic</string>
+   </property>
+  </action>
+  <action name="action_settings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
