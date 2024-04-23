@@ -116,9 +116,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow\MainWindow.cpp" />
+    <ClCompile Include="SettingsWidget\SettingsWidget.cpp" />
     <ClCompile Include="Tools\FBX_Base.cpp" />
     <ClCompile Include="Tools\FBX_EnumTransformation.cpp" />
     <ClCompile Include="Tools\FBX_Extraction.cpp" />
+    <ClCompile Include="Tools\Settings.cpp" />
     <ClCompile Include="WaitingWidget\WaitingWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow\MainWindow.ui" />
+    <QtUic Include="SettingsWidget\SettingsWidget.ui" />
     <QtUic Include="WaitingWidget\WaitingWidget.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +138,8 @@
     <QtMoc Include="WaitingWidget\WaitingWidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Tools\Settings.h" />
+    <QtMoc Include="SettingsWidget\SettingsWidget.h" />
     <ClInclude Include="Tools\FBX_Base.h" />
     <ClInclude Include="Tools\FBX_EnumTransformation.h" />
     <ClInclude Include="Tools\FBX_Extraction.h" />
