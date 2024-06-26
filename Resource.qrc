@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/FBXViewer">
+        <file alias="Waiting.gif">WaitingWidget/Waiting.gif</file>
+    </qresource>
+</RCC>

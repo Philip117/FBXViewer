@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include "ui_SettingsWidget.h"
-#include "../Tools/Settings.h"
+#include "Settings.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -14,7 +14,7 @@ class SettingsWidget : public QWidget
 	Q_OBJECT
 
 public:
-	SettingsWidget(QWidget *parent = nullptr);
+	SettingsWidget(QWidget* parent = nullptr);
 	~SettingsWidget();
 
 	void RefreshUi();
@@ -25,6 +25,6 @@ public:
 	void Event_Cancel();
 
 private:
-	Ui::SettingsWidgetClass *mpUi;
+	Ui::SettingsWidgetClass* mpUi;
 	Settings::Settings mSettings;
 };

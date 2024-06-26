@@ -2,7 +2,7 @@
 #include "SettingsWidget.h"
 
 
-SettingsWidget::SettingsWidget(QWidget *parent)
+SettingsWidget::SettingsWidget(QWidget* parent)
 	: QWidget(parent)
 	, mpUi(new Ui::SettingsWidgetClass())
 {
@@ -64,7 +64,7 @@ void SettingsWidget::Event_Reset()
 
 void SettingsWidget::Event_Cancel()
 {
-	Event_Reset();
+	//Event_Reset();
 	close();
 }
 

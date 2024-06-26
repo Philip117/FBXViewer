@@ -37,7 +37,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.7.0_msvc2019_64</QtInstall>
+    <QtInstall>6.5.3_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -68,11 +68,11 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\include;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\include;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>FBXSDK_SHARED;$(Qt_DEFINES_);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\lib\x64\debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\Autodesk\FBX\FBX SDK\2020.3.7\lib\x64\debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>libfbxsdk.lib;$(Qt_LIBS_);%(AdditionalDependencies);</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -107,7 +107,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="FBXViewer.qrc" />
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -116,11 +116,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow\MainWindow.cpp" />
+    <ClCompile Include="SettingsWidget\Settings.cpp" />
     <ClCompile Include="SettingsWidget\SettingsWidget.cpp" />
     <ClCompile Include="Tools\FBX_Base.cpp" />
     <ClCompile Include="Tools\FBX_EnumTransformation.cpp" />
     <ClCompile Include="Tools\FBX_Extraction.cpp" />
-    <ClCompile Include="Tools\Settings.cpp" />
     <ClCompile Include="WaitingWidget\WaitingWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,8 +138,8 @@
     <QtMoc Include="WaitingWidget\WaitingWidget.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tools\Settings.h" />
     <QtMoc Include="SettingsWidget\SettingsWidget.h" />
+    <ClInclude Include="SettingsWidget\Settings.h" />
     <ClInclude Include="Tools\FBX_Base.h" />
     <ClInclude Include="Tools\FBX_EnumTransformation.h" />
     <ClInclude Include="Tools\FBX_Extraction.h" />

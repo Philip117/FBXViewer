@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QFile>
 #include "Settings.h"
 
 
@@ -15,24 +16,32 @@ namespace Settings
 
 	void Settings::LoadSettings()
 	{
-		QString lPath = QApplication::applicationDirPath() + "/FBXViewer.ini";
-		// QSettings::Format::NativeFormat 表示采取最适合对应平台的编码方式
-		// QSettings::Format::IniFormat
-		QSettings lSettings(QApplication::applicationDirPath() + "/FBXViewer.ini", QSettings::IniFormat);
-		// QSetting 读取值时候的第二个参数是当所取的值不存在时返回的默认值
-		mLanguage = lSettings.value("Language", QVariant::fromValue<ELanguage>(ELanguage::English))
-			.value<ELanguage>();
-		mFontSize = lSettings.value("FontSize", 10).value<unsigned int>();
-		mLastFileDir = lSettings.value("LastFileDir", "C:/").toString();
+		// 若本地有设置的配置文件，就加载进来
+		if (QFile::exists(QApplication::applicationDirPath() + "/FBXViewer.ini"))
+		{
+			// QSettings::Format::NativeFormat 表示采取最适合对应平台的编码方式
+			// QSettings::Format::IniFormat
+			QSettings lSettings(QApplication::applicationDirPath() + "/FBXViewer.ini", QSettings::IniFormat);
+			lSettings.beginGroup("FBXViewer");
+			// QSetting 读取值时候的第二个参数是当所取的值不存在时返回的默认值
+			mLanguage = lSettings.value("Language", QVariant::fromValue<ELanguage>(ELanguage::English))
+				.value<ELanguage>();
+			auto lFontSize = lSettings.value("FontSize");
+			mFontSize = lSettings.value("FontSize", 10).value<unsigned int>();
+			mLastFileDir = lSettings.value("LastFileDir", "C:/").toString();
+			lSettings.endGroup();
+		}
 	}
 
 	void Settings::SaveSettings()
 	{
-		QSettings lSettings(QApplication::applicationDirPath() + "/FBXViewer.ini", QSettings::NativeFormat);
+		QSettings lSettings(QApplication::applicationDirPath() + "/FBXViewer.ini", QSettings::IniFormat);
+		lSettings.beginGroup("FBXViewer");
 		lSettings.setValue("Language", QVariant::fromValue<ELanguage>(mLanguage));
 		lSettings.setValue("FontSize", QVariant::fromValue<unsigned int>(mFontSize));
 		lSettings.setValue("LastFileDir", mLastFileDir);
 		lSettings.sync();
+		lSettings.endGroup();
 	}
 
 	Settings& Settings::operator=(const Settings& settings)

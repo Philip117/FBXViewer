@@ -7,10 +7,9 @@
 #include "../Tools/FBX_Base.h"
 #include "../Tools/FBX_Extraction.h"
 #include "../Tools/FBX_EnumTransformation.h"
-#include "../Tools/Settings.h"
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)
 	, mpUi(new Ui::MainWindowClass())
 {
@@ -31,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 	connect(mpUi->action_about, &QAction::triggered, this, &MainWindow::OnAction_About);
 
 	connect(mpUi->treeWidget, &QTreeWidget::itemClicked, this,
-		static_cast<void(MainWindow::*)(QTreeWidgetItem * pItem, int column)> (& MainWindow::RefreshUi_NodeAttribute));
+		static_cast<void(MainWindow::*)(QTreeWidgetItem * pItem, int column)> (&MainWindow::RefreshUi_NodeAttribute));
 }
 
 MainWindow::~MainWindow()
@@ -140,9 +139,9 @@ void MainWindow::OnAction_Open()
 		Fbx_Base::TransformFilePath(lFilePath_std);
 		if (!Fbx_Base::LoadFbxFile(mpManager, mpScene, lFilePath_std))
 			QMessageBox::information(nullptr, "Error", std::format("LoadFbxFile failed\n{}",
-				lFilePath_std.c_str()).c_str(),QMessageBox::Yes);
+				lFilePath_std.c_str()).c_str(), QMessageBox::Yes);
 		else
-			mLastFileDir= lFilePath_std.c_str();
+			mLastFileDir = lFilePath_std.c_str();
 		mpWaitingWidget->close();
 		RefreshUi();
 	}

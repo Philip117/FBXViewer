@@ -5,7 +5,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="FBXViewer.qrc" />
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="MainWindow">
@@ -16,6 +16,9 @@
     </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{839a05d7-f6ef-4efa-a3fb-079cf632e8a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SettingsWidget">
+      <UniqueIdentifier>{542c605c-69e9-408d-b51d-269f8a19de71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +38,12 @@
     <ClCompile Include="Tools\FBX_Extraction.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="SettingsWidget\SettingsWidget.cpp">
+      <Filter>SettingsWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsWidget\Settings.cpp">
+      <Filter>SettingsWidget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow\MainWindow.h">
@@ -43,6 +52,9 @@
     <QtMoc Include="WaitingWidget\WaitingWidget.h">
       <Filter>WaitingWidget</Filter>
     </QtMoc>
+    <QtMoc Include="SettingsWidget\SettingsWidget.h">
+      <Filter>SettingsWidget</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow\MainWindow.ui">
@@ -50,6 +62,9 @@
     </QtUic>
     <QtUic Include="WaitingWidget\WaitingWidget.ui">
       <Filter>WaitingWidget</Filter>
+    </QtUic>
+    <QtUic Include="SettingsWidget\SettingsWidget.ui">
+      <Filter>SettingsWidget</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="Tools\FBX_Extraction.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsWidget\Settings.h">
+      <Filter>SettingsWidget</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
