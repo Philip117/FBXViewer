@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QSettings>
 
@@ -7,8 +7,8 @@ namespace Settings
 {
 	enum ELanguage
 	{
-		English = 0,
-		Chinese = 1,
+		Chinese = 0,
+		English = 1,
 		Count
 	};
 

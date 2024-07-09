@@ -1,12 +1,13 @@
-#include <qfiledialog.h>
+ï»¿#include <qfiledialog.h>
 #include <qmessagebox.h>
 #include <string>
 #include <format>
 #include <queue>
 #include "MainWindow.h"
-#include "../Tools/FBX_Base.h"
-#include "../Tools/FBX_Extraction.h"
-#include "../Tools/FBX_EnumTransformation.h"
+#include "Others/DataType.h"
+#include "Tools/FBX_Base.h"
+#include "Tools/FBX_Extraction.h"
+#include "Tools/FBX_EnumTransformation.h"
 
 
 MainWindow::MainWindow(QWidget* parent)
@@ -14,20 +15,23 @@ MainWindow::MainWindow(QWidget* parent)
 	, mpUi(new Ui::MainWindowClass())
 {
 	mpUi->setupUi(this);
-	Settings::Settings lSettings;
-	lSettings.LoadSettings();
 	mpManager = nullptr;
 	mpScene = nullptr;
+	Settings::Settings lSettings;
+	lSettings.LoadSettings();
 	mLastFileDir = lSettings.mLastFileDir;
 	Fbx_Base::InitializeManagerAndScene(mpManager, mpScene);
-	mpWaitingWidget = new WaitingWidget(this);
+	mpWaitingDialog = new WaitingDialog(this, false, true);
 	mpSettingsWidget = new SettingsWidget(this);
 
-	connect(mpUi->action_open, &QAction::triggered, this, &MainWindow::OnAction_Open);
-	connect(mpUi->action_exit, &QAction::triggered, this, &MainWindow::OnAction_Exit);
-	connect(mpUi->action_statistic, &QAction::triggered, this, &MainWindow::OnAction_Statistic);
-	connect(mpUi->action_settings, &QAction::triggered, this, &MainWindow::OnAction_Settings);
-	connect(mpUi->action_about, &QAction::triggered, this, &MainWindow::OnAction_About);
+	connect(mpUi->action_open, &QAction::triggered, this, &MainWindow::Slot_Open);
+	connect(mpUi->action_exit, &QAction::triggered, this, &MainWindow::Slot_Exit);
+	connect(mpUi->action_statistic, &QAction::triggered, this, &MainWindow::Slot_Statistic);
+	connect(mpUi->action_settings, &QAction::triggered, this, &MainWindow::Slot_Settings);
+	connect(mpUi->action_about, &QAction::triggered, this, &MainWindow::Slot_About);
+
+	connect(mpSettingsWidget, &SettingsWidget::Signal_LanguageChanged, this, &MainWindow::Slot_Settings_LanguageChanged, Qt::DirectConnection);
+	connect(mpSettingsWidget, &SettingsWidget::Signal_FontSizeChanged, this, &MainWindow::Slot_Settings_FontSizeChanged, Qt::DirectConnection);
 
 	connect(mpUi->treeWidget, &QTreeWidget::itemClicked, this,
 		static_cast<void(MainWindow::*)(QTreeWidgetItem * pItem, int column)> (&MainWindow::RefreshUi_NodeAttribute));
@@ -38,7 +42,7 @@ MainWindow::~MainWindow()
 	delete mpUi;
 	Fbx_Base::DestroyScene(mpScene);
 	Fbx_Base::DestroyManager(mpManager);
-	delete mpWaitingWidget;
+	delete mpWaitingDialog;
 }
 
 
@@ -51,7 +55,7 @@ void MainWindow::RefreshUi()
 void MainWindow::RefreshUi_TreeWidget()
 {
 	int lCount = mpUi->treeWidget->topLevelItemCount();
-	// Ö±½Ó clear() »á±¼À££¬ÐèÒªÊÖ¶¯ÊÍ·ÅÊ÷½ÚµãµÄÄÚ´æ
+	// ç›´æŽ¥ clear() ä¼šå¥”æºƒï¼Œéœ€è¦æ‰‹åŠ¨é‡Šæ”¾æ ‘èŠ‚ç‚¹çš„å†…å­˜
 	if (mpUi->treeWidget->topLevelItemCount() > 0)
 		mpUi->treeWidget->invisibleRootItem()->takeChildren();
 	mpUi->treeWidget->clear();
@@ -113,7 +117,7 @@ void MainWindow::RefreshUi_NodeAttribute(QTreeWidgetItem* pItem, int column)
 }
 
 
-void MainWindow::OnAction_Open()
+void MainWindow::Slot_Open()
 {
 	std::string lFilePath_std;
 	QString lFilePath_qt;
@@ -125,7 +129,7 @@ void MainWindow::OnAction_Open()
 
 	if (lFilePath_qt != nullptr)
 	{
-		lFilePath_std = lFilePath_qt.toLocal8Bit().constData();	// Ö±½Ó constData() ÄÃµ½µÄÊÇ QChar ÀàÐÍ
+		lFilePath_std = lFilePath_qt.toLocal8Bit().constData();	// ç›´æŽ¥ constData() æ‹¿åˆ°çš„æ˜¯ QChar ç±»åž‹
 		mLastFileDir = lFilePath_qt.mid(0, lFilePath_qt.lastIndexOf("/"));
 		Settings::Settings lSettings;
 		lSettings.LoadSettings();
@@ -135,37 +139,60 @@ void MainWindow::OnAction_Open()
 		//qDebug() << lFileName;
 		//QMessageBox::information(nullptr, "Title", lFileName, QMessageBox::Yes);
 
-		mpWaitingWidget->show();
+		mpWaitingDialog->show();
 		Fbx_Base::TransformFilePath(lFilePath_std);
 		if (!Fbx_Base::LoadFbxFile(mpManager, mpScene, lFilePath_std))
 			QMessageBox::information(nullptr, "Error", std::format("LoadFbxFile failed\n{}",
 				lFilePath_std.c_str()).c_str(), QMessageBox::Yes);
 		else
 			mLastFileDir = lFilePath_std.c_str();
-		mpWaitingWidget->close();
+		mpWaitingDialog->close();
 		RefreshUi();
 	}
 }
 
-void MainWindow::OnAction_Exit()
+void MainWindow::Slot_Exit()
 {
 	close();
 }
 
-void MainWindow::OnAction_Statistic()
+void MainWindow::Slot_Statistic()
 {
 
 }
 
-void MainWindow::OnAction_Settings()
+void MainWindow::Slot_Settings()
 {
 	mpSettingsWidget->show();
 }
 
-void MainWindow::OnAction_About()
+void MainWindow::Slot_About()
 {
 
 }
 
 
+void MainWindow::Slot_Settings_LanguageChanged(const int& index)
+{
+	Settings::ELanguage lLanguage = static_cast<Settings::ELanguage>(index);	// é€‰é¡¹çš„ä¸‹æ ‡åˆšå¥½å¯¹åº”ç€æžšä¸¾å€¼
+	if (lLanguage == Settings::ELanguage::Chinese)
+	{
+		if (!mTranslator.load(":/FBXViewer/Translation_zh_CN.qm"))
+			return;
+	}
+	else
+	{
+		if (!mTranslator.load(":/FBXViewer/Translation_en_US.qm"))
+			return;
+	}
+	qApp->installTranslator(&mTranslator);
+	mpUi->retranslateUi(this);
+}
+
+void MainWindow::Slot_Settings_FontSizeChanged(const int& fontSize)
+{
+	QFont lFont = this->font();
+	lFont.setPointSize(fontSize);
+	this->setFont(lFont);
+}
 

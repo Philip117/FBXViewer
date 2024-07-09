@@ -3,16 +3,16 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtRcc Include="Resource.qrc" />
+    <None Include="Others\Translation_en_US.qm">
+      <Filter>Others</Filter>
+    </None>
+    <None Include="Others\Translation_zh_CN.qm">
+      <Filter>Others</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="MainWindow">
       <UniqueIdentifier>{e71c1b6b-3344-4d4c-97d9-1c7dba939202}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="WaitingWidget">
-      <UniqueIdentifier>{b4475b05-2af5-4aef-953a-27d426468327}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{839a05d7-f6ef-4efa-a3fb-079cf632e8a5}</UniqueIdentifier>
@@ -20,15 +20,18 @@
     <Filter Include="SettingsWidget">
       <UniqueIdentifier>{542c605c-69e9-408d-b51d-269f8a19de71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Others">
+      <UniqueIdentifier>{2e838f1d-5a35-41b7-8714-3c7de6db3ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WaitingDialog">
+      <UniqueIdentifier>{b4475b05-2af5-4aef-953a-27d426468327}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindow\MainWindow.cpp">
       <Filter>MainWindow</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="WaitingWidget\WaitingWidget.cpp">
-      <Filter>WaitingWidget</Filter>
-    </ClCompile>
     <ClCompile Include="Tools\FBX_Base.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
@@ -44,33 +47,31 @@
     <ClCompile Include="SettingsWidget\Settings.cpp">
       <Filter>SettingsWidget</Filter>
     </ClCompile>
+    <ClCompile Include="WaitingDialog\WaitingDialog.cpp">
+      <Filter>WaitingDialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow\MainWindow.h">
       <Filter>MainWindow</Filter>
     </QtMoc>
-    <QtMoc Include="WaitingWidget\WaitingWidget.h">
-      <Filter>WaitingWidget</Filter>
-    </QtMoc>
     <QtMoc Include="SettingsWidget\SettingsWidget.h">
       <Filter>SettingsWidget</Filter>
+    </QtMoc>
+    <QtMoc Include="WaitingDialog\WaitingDialog.h">
+      <Filter>WaitingDialog</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow\MainWindow.ui">
       <Filter>MainWindow</Filter>
     </QtUic>
-    <QtUic Include="WaitingWidget\WaitingWidget.ui">
-      <Filter>WaitingWidget</Filter>
-    </QtUic>
     <QtUic Include="SettingsWidget\SettingsWidget.ui">
       <Filter>SettingsWidget</Filter>
     </QtUic>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="WaitingWidget\Waiting.gif">
-      <Filter>WaitingWidget</Filter>
-    </Image>
+    <QtUic Include="WaitingDialog\WaitingDialog.ui">
+      <Filter>WaitingDialog</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tools\FBX_Base.h">
@@ -85,5 +86,19 @@
     <ClInclude Include="SettingsWidget\Settings.h">
       <Filter>SettingsWidget</Filter>
     </ClInclude>
+    <ClInclude Include="Others\DataType.h">
+      <Filter>Others</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="Others\Translation_zh_CN.ts">
+      <Filter>Others</Filter>
+    </QtTranslation>
+    <QtTranslation Include="Others\Translation_en_US.ts">
+      <Filter>Others</Filter>
+    </QtTranslation>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
 </Project>

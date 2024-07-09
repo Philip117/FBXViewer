@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 
-#include <QWidget>
+#include <qwidget.h>
+#include <qtranslator.h>
 #include "ui_SettingsWidget.h"
 #include "Settings.h"
 
@@ -20,11 +21,20 @@ public:
 	void RefreshUi();
 	void closeEvent(QCloseEvent* pEvent);
 
-	void Event_Confirm();
-	void Event_Reset();
-	void Event_Cancel();
+public slots:
+	void Slot_Confirm();
+	void Slot_Reset();
+	void Slot_Cancel();
+
+signals:
+	void Signal_LanguageChanged(const int& index);
+	void Signal_FontSizeChanged(const int& fontSize);
+public slots:
+	void Slot_LanguageChanged(const int& index);
+	void Slot_FontSizeChanged(const int& fontSize);
 
 private:
 	Ui::SettingsWidgetClass* mpUi;
 	Settings::Settings mSettings;
+	QTranslator mTranslator;
 };

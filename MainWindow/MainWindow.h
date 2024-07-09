@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 
-#include <QMainWindow>
+#include <qmainwindow.h>
+#include <qtranslator.h>
 #include <fbxsdk.h>
 #include "ui_MainWindow.h"
-#include "../WaitingWidget/WaitingWidget.h"
-#include "../SettingsWidget/SettingsWidget.h"
+#include "WaitingDialog/WaitingDialog.h"
+#include "SettingsWidget/SettingsWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindowClass; };
@@ -15,26 +16,35 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	MainWindow(QWidget *parent = nullptr);
+	MainWindow(QWidget* parent = nullptr);
 	~MainWindow();
 
 private:
 	void RefreshUi();
-	void RefreshUi_TreeWidget();
-	void RefreshUi_TabWidget();
+	void	RefreshUi_TreeWidget();
+	void	RefreshUi_TabWidget();
 	void	RefreshUi_NodeAttribute();
 	void	RefreshUi_NodeAttribute(QTreeWidgetItem* pItem, int column);
 
-	void OnAction_Open();
-	void OnAction_Exit();
-	void OnAction_Statistic();
-	void OnAction_Settings();
-	void OnAction_About();
+public slots:
+	void Slot_Open();
+	void Slot_Exit();
+	void Slot_Statistic();
+	void Slot_Settings();
+	void Slot_About();
+
+	void Slot_Settings_LanguageChanged(const int& index);
+	void Slot_Settings_FontSizeChanged(const int& fontSize);
+
+private:
 
 	Ui::MainWindowClass* mpUi;
 	FbxManager* mpManager;
 	FbxScene* mpScene;
 	QString mLastFileDir;
-	WaitingWidget* mpWaitingWidget;
+	WaitingDialog* mpWaitingDialog;
+
 	SettingsWidget* mpSettingsWidget;
+	QTranslator mTranslator;
+
 };

@@ -1,4 +1,4 @@
-#include <QtWidgets/QApplication>
+﻿#include <QtWidgets/QApplication>
 #include "MainWindow/MainWindow.h"
 
 

@@ -107,10 +107,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="Resource.qrc" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Others\Translation_en_US.qm" />
+    <None Include="Others\Translation_zh_CN.qm" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -121,7 +120,7 @@
     <ClCompile Include="Tools\FBX_Base.cpp" />
     <ClCompile Include="Tools\FBX_EnumTransformation.cpp" />
     <ClCompile Include="Tools\FBX_Extraction.cpp" />
-    <ClCompile Include="WaitingWidget\WaitingWidget.cpp" />
+    <ClCompile Include="WaitingDialog\WaitingDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow\MainWindow.h" />
@@ -129,20 +128,23 @@
   <ItemGroup>
     <QtUic Include="MainWindow\MainWindow.ui" />
     <QtUic Include="SettingsWidget\SettingsWidget.ui" />
-    <QtUic Include="WaitingWidget\WaitingWidget.ui" />
+    <QtUic Include="WaitingDialog\WaitingDialog.ui" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="WaitingWidget\Waiting.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="WaitingWidget\WaitingWidget.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <QtMoc Include="WaitingDialog\WaitingDialog.h" />
     <QtMoc Include="SettingsWidget\SettingsWidget.h" />
+    <ClInclude Include="Others\DataType.h" />
     <ClInclude Include="SettingsWidget\Settings.h" />
     <ClInclude Include="Tools\FBX_Base.h" />
     <ClInclude Include="Tools\FBX_EnumTransformation.h" />
     <ClInclude Include="Tools\FBX_Extraction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtTranslation Include="Others\Translation_en_US.ts" />
+    <QtTranslation Include="Others\Translation_zh_CN.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

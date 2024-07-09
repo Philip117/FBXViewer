@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/FBXViewer">
-        <file alias="Waiting.gif">WaitingWidget/Waiting.gif</file>
+        <file alias="Translation_en_US.qm">Others/Translation_en_US.qm</file>
+        <file alias="Translation_zh_CN.qm">Others/Translation_zh_CN.qm</file>
+        <file alias="Waiting.gif">WaitingDialog/Waiting.gif</file>
     </qresource>
 </RCC>

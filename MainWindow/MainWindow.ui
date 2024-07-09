@@ -17,14 +17,14 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string notr="true">FBXViewer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
+       <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QTreeWidget" name="treeWidget">
        <property name="sizePolicy">
@@ -38,13 +38,13 @@
        </attribute>
        <column>
         <property name="text">
-         <string>Root Node</string>
+         <string notr="true">Root Node</string>
         </property>
        </column>
       </widget>
       <widget class="QTabWidget" name="tabWidget">
        <property name="tabPosition">
-        <enum>QTabWidget::TabPosition::East</enum>
+        <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
         <number>0</number>
@@ -56,6 +56,21 @@
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QLabel" name="label_nodeName">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">font: 700 10pt &quot;Microsoft YaHei UI&quot;;</string>
            </property>
@@ -65,21 +80,15 @@
           </widget>
          </item>
          <item>
-          <layout class="QFormLayout" name="formLayout">
-           <property name="sizeConstraint">
-            <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
-           </property>
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::FieldGrowthPolicy::AllNonFixedFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
             <widget class="QLabel" name="label_2">
              <property name="text">
               <string>Node Type:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
+           <item>
             <widget class="QLineEdit" name="lineEdit_nodeType">
              <property name="text">
               <string notr="true"/>
@@ -108,7 +117,10 @@
          <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
-            <enum>Qt::Orientation::Vertical</enum>
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -131,7 +143,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>33</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">
@@ -153,15 +165,15 @@
     </property>
     <addaction name="action_statistic"/>
    </widget>
-   <widget class="QMenu" name="menu_settings">
+   <widget class="QMenu" name="menu_edit">
     <property name="title">
-     <string>Settings</string>
+     <string>Edit</string>
     </property>
     <addaction name="action_settings"/>
    </widget>
    <addaction name="menu_file"/>
+   <addaction name="menu_edit"/>
    <addaction name="menu_statistic"/>
-   <addaction name="menu_settings"/>
    <addaction name="menu_info"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

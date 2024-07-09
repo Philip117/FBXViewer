@@ -1,4 +1,4 @@
-#include <QApplication>
+ï»¿#include <QApplication>
 #include <QFile>
 #include "Settings.h"
 
@@ -7,7 +7,7 @@ namespace Settings
 {
 	Settings::Settings()
 	{
-		mLanguage = ELanguage::English;
+		mLanguage = ELanguage::Chinese;
 		mFontSize = 9;
 	}
 
@@ -16,14 +16,14 @@ namespace Settings
 
 	void Settings::LoadSettings()
 	{
-		// Èô±¾µØÓĞÉèÖÃµÄÅäÖÃÎÄ¼ş£¬¾Í¼ÓÔØ½øÀ´
+		// è‹¥æœ¬åœ°æœ‰è®¾ç½®çš„é…ç½®æ–‡ä»¶ï¼Œå°±åŠ è½½è¿›æ¥
 		if (QFile::exists(QApplication::applicationDirPath() + "/FBXViewer.ini"))
 		{
-			// QSettings::Format::NativeFormat ±íÊ¾²ÉÈ¡×îÊÊºÏ¶ÔÓ¦Æ½Ì¨µÄ±àÂë·½Ê½
+			// QSettings::Format::NativeFormat è¡¨ç¤ºé‡‡å–æœ€é€‚åˆå¯¹åº”å¹³å°çš„ç¼–ç æ–¹å¼
 			// QSettings::Format::IniFormat
 			QSettings lSettings(QApplication::applicationDirPath() + "/FBXViewer.ini", QSettings::IniFormat);
 			lSettings.beginGroup("FBXViewer");
-			// QSetting ¶ÁÈ¡ÖµÊ±ºòµÄµÚ¶ş¸ö²ÎÊıÊÇµ±ËùÈ¡µÄÖµ²»´æÔÚÊ±·µ»ØµÄÄ¬ÈÏÖµ
+			// QSetting è¯»å–å€¼æ—¶å€™çš„ç¬¬äºŒä¸ªå‚æ•°æ˜¯å½“æ‰€å–çš„å€¼ä¸å­˜åœ¨æ—¶è¿”å›çš„é»˜è®¤å€¼
 			mLanguage = lSettings.value("Language", QVariant::fromValue<ELanguage>(ELanguage::English))
 				.value<ELanguage>();
 			auto lFontSize = lSettings.value("FontSize");

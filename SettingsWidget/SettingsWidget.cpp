@@ -1,4 +1,5 @@
-#include <QMessageBox>
+ï»¿#include <qmessagebox.h>
+#include <qtranslator.h>
 #include "SettingsWidget.h"
 
 
@@ -7,16 +8,18 @@ SettingsWidget::SettingsWidget(QWidget* parent)
 	, mpUi(new Ui::SettingsWidgetClass())
 {
 	mpUi->setupUi(this);
-	this->setWindowOpacity(0.8);	// Í¸Ã÷¶È
-	setWindowFlags(Qt::Dialog);	// ÉèÖÃÎªÈ¥µô±ß¿òµÄ¶Ô»°¿ò·ç¸ñ
+	this->setWindowOpacity(0.8);	// é€æ˜Žåº¦
+	setWindowFlags(Qt::Dialog);	// è®¾ç½®ä¸ºåŽ»æŽ‰è¾¹æ¡†çš„å¯¹è¯æ¡†é£Žæ ¼
 	mSettings.LoadSettings();
 	unsigned int lIndex_language = mSettings.mLanguage == Settings::ELanguage::English ? 0 : 1;
 	mpUi->comboBox_language->setCurrentIndex(lIndex_language);
 	mpUi->spinBox_fontSize->setValue(mSettings.mFontSize);
+	Slot_LanguageChanged(lIndex_language);
+	Slot_FontSizeChanged(mSettings.mFontSize);
 
-	connect(mpUi->pushButton_confirm, &QPushButton::clicked, this, &SettingsWidget::Event_Confirm);
-	connect(mpUi->pushButton_reset, &QPushButton::clicked, this, &SettingsWidget::Event_Reset);
-	connect(mpUi->pushButton_cancel, &QPushButton::clicked, this, &SettingsWidget::Event_Cancel);
+	connect(mpUi->pushButton_confirm, &QPushButton::clicked, this, &SettingsWidget::Slot_Confirm);
+	connect(mpUi->pushButton_reset, &QPushButton::clicked, this, &SettingsWidget::Slot_Reset);
+	connect(mpUi->pushButton_cancel, &QPushButton::clicked, this, &SettingsWidget::Slot_Cancel);
 }
 
 SettingsWidget::~SettingsWidget()
@@ -27,7 +30,7 @@ SettingsWidget::~SettingsWidget()
 
 void SettingsWidget::RefreshUi()
 {
-	unsigned int lIndex_language = mSettings.mLanguage == Settings::ELanguage::English ? 0 : 1;
+	int lIndex_language = mSettings.mLanguage == Settings::ELanguage::Chinese ? 0 : 1;
 	mpUi->comboBox_language->setCurrentIndex(lIndex_language);
 	mpUi->spinBox_fontSize->setValue(mSettings.mFontSize);
 }
@@ -46,15 +49,20 @@ void SettingsWidget::closeEvent(QCloseEvent* pEvent)
 	}
 }
 
-void SettingsWidget::Event_Confirm()
+void SettingsWidget::Slot_Confirm()
 {
-	mSettings.mLanguage = static_cast<Settings::ELanguage>(mpUi->comboBox_language->currentIndex());
+	int lIndex_language = mpUi->comboBox_language->currentIndex();
+	mSettings.mLanguage = static_cast<Settings::ELanguage>(lIndex_language);
 	mSettings.mFontSize = static_cast<unsigned int>(mpUi->spinBox_fontSize->value());
+	Slot_LanguageChanged(lIndex_language);
+	Slot_FontSizeChanged(mpUi->spinBox_fontSize->value());
+	Signal_LanguageChanged(lIndex_language);
+	Signal_FontSizeChanged(mpUi->spinBox_fontSize->value());
 	mSettings.SaveSettings();
 	close();
 }
 
-void SettingsWidget::Event_Reset()
+void SettingsWidget::Slot_Reset()
 {
 	Settings::Settings lSettings;
 	lSettings.LoadSettings();
@@ -62,9 +70,33 @@ void SettingsWidget::Event_Reset()
 	RefreshUi();
 }
 
-void SettingsWidget::Event_Cancel()
+void SettingsWidget::Slot_Cancel()
 {
-	//Event_Reset();
 	close();
+}
+
+
+void SettingsWidget::Slot_LanguageChanged(const int& index)
+{
+	Settings::ELanguage lLanguage = static_cast<Settings::ELanguage>(index);
+	if (lLanguage == Settings::ELanguage::Chinese)
+	{
+		if (!mTranslator.load(":/FBXViewer/Translation_zh_CN.qm"))
+			return;
+	}
+	else
+	{
+		if (!mTranslator.load(":/FBXViewer/Translation_en_US.qm"))
+			return;
+	}
+	qApp->installTranslator(&mTranslator);
+	mpUi->retranslateUi(this);
+}
+
+void SettingsWidget::Slot_FontSizeChanged(const int& fontSize)
+{
+	QFont lFont = this->font();
+	lFont.setPointSize(fontSize);
+	this->setFont(lFont);
 }
 

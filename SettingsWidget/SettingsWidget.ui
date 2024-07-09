@@ -3,18 +3,18 @@
  <class>SettingsWidgetClass</class>
  <widget class="QWidget" name="SettingsWidgetClass">
   <property name="windowModality">
-   <enum>Qt::WindowModality::WindowModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>360</width>
-    <height>240</height>
+    <height>363</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SettingsWidget</string>
+   <string>Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -45,19 +45,22 @@
         <bool>false</bool>
        </property>
        <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::ButtonSymbols::UpDownArrows</enum>
+        <enum>QAbstractSpinBox::UpDownArrows</enum>
        </property>
        <property name="correctionMode">
-        <enum>QAbstractSpinBox::CorrectionMode::CorrectToNearestValue</enum>
+        <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
        </property>
        <property name="minimum">
-        <number>5</number>
+        <number>8</number>
        </property>
        <property name="maximum">
-        <number>16</number>
+        <number>12</number>
        </property>
        <property name="stepType">
-        <enum>QAbstractSpinBox::StepType::DefaultStepType</enum>
+        <enum>QAbstractSpinBox::DefaultStepType</enum>
+       </property>
+       <property name="value">
+        <number>9</number>
        </property>
       </widget>
      </item>
@@ -71,12 +74,12 @@
        </property>
        <item>
         <property name="text">
-         <string>English</string>
+         <string notr="true">中文</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>中文</string>
+         <string notr="true">English</string>
         </property>
        </item>
       </widget>
@@ -86,7 +89,7 @@
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
+      <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -98,21 +101,21 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
-     <item alignment="Qt::AlignmentFlag::AlignHCenter">
+     <item>
       <widget class="QPushButton" name="pushButton_confirm">
        <property name="text">
         <string>Confirm</string>
        </property>
       </widget>
      </item>
-     <item alignment="Qt::AlignmentFlag::AlignHCenter">
+     <item>
       <widget class="QPushButton" name="pushButton_reset">
        <property name="text">
         <string>Reset</string>
        </property>
       </widget>
      </item>
-     <item alignment="Qt::AlignmentFlag::AlignHCenter">
+     <item>
       <widget class="QPushButton" name="pushButton_cancel">
        <property name="text">
         <string>Cancel</string>
