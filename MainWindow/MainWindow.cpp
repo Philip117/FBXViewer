@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent)
 	connect(mpSettingsWidget, &SettingsWidget::Signal_FontSizeChanged, this, &MainWindow::Slot_Settings_FontSizeChanged, Qt::DirectConnection);
 
 	connect(mpUi->treeWidget, &QTreeWidget::itemClicked, this,
-		static_cast<void(MainWindow::*)(QTreeWidgetItem * pItem, int column)> (&MainWindow::RefreshUi_NodeAttribute));
+		static_cast<void(MainWindow::*)(QTreeWidgetItem* const pItem, const int& column)> (&MainWindow::RefreshUi_NodeAttributes));
 }
 
 MainWindow::~MainWindow()
@@ -100,20 +100,125 @@ void MainWindow::RefreshUi_TreeWidget()
 
 void MainWindow::RefreshUi_TabWidget()
 {
-	RefreshUi_NodeAttribute();
+	RefreshUi_NodeAttributes();
 }
 
-void MainWindow::RefreshUi_NodeAttribute()
+void MainWindow::RefreshUi_NodeAttributes()
 {
-
+	QTreeWidgetItem* lpTreeWidgetItem = mpUi->treeWidget->currentItem();
+	if (lpTreeWidgetItem)
+	{
+		RefreshUi_NodeAttributes(lpTreeWidgetItem, 0);
+	}
+	else
+	{
+		mpUi->label_nodeName->setVisible(false);
+		SetVisible_Layout(mpUi->horizontalLayout_nodeType, false);
+		SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
+		SetVisible_Layout(mpUi->horizontalLayout_translations, false);
+		SetVisible_Layout(mpUi->horizontalLayout_eulers, false);
+		SetVisible_Layout(mpUi->horizontalLayout_scalings, false);
+	}
 }
 
-void MainWindow::RefreshUi_NodeAttribute(QTreeWidgetItem* pItem, int column)
+void MainWindow::RefreshUi_NodeAttributes(QTreeWidgetItem* const pItem, const int& column)
+{
+	RefreshUi_NodeAttributes_BasicAttributes(pItem, column);
+	RefreshUi_NodeAttributes_RotationAttributes(pItem, column);
+}
+
+void MainWindow::RefreshUi_NodeAttributes_BasicAttributes(QTreeWidgetItem* const pItem, const int& column)
 {
 	FbxNode* lpNode = pItem->data(column, Qt::UserRole).value<FbxNode*>();
+	mpUi->label_nodeName->setVisible(true);
 	mpUi->label_nodeName->setText(lpNode->GetName());
-	mpUi->lineEdit_nodeType->setText(lpNode->GetTypeName());
-	//mpUi->lineEdit_nodeType->setText(Fbx_EnumTransformation::ENodeTypeToString(lpNode->GetTypeName()))
+	FbxNodeAttribute* lpNodeAttribute = lpNode->GetNodeAttribute();
+	if (lpNodeAttribute)
+	{
+		mpUi->lineEdit_nodeType->setText(
+			Fbx_EnumTransformation::ENodeTypeToString(lpNodeAttribute->GetAttributeType()).c_str());
+		SetVisible_Layout(mpUi->horizontalLayout_nodeType, true);
+		if (lpNodeAttribute->GetAttributeType() == FbxNodeAttribute::EType::eSkeleton)
+		{
+			SetVisible_Layout(mpUi->horizontalLayout_skeletonType, true);
+			mpUi->lineEdit_skeletonType->setText(
+				Fbx_EnumTransformation::ESkeletonTypeToString(lpNode->GetSkeleton()->GetSkeletonType()).c_str());
+		}
+		else
+		{
+			SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
+		}
+		SetVisible_Layout(mpUi->horizontalLayout_translations, true);
+		SetVisible_Layout(mpUi->horizontalLayout_eulers, true);
+		SetVisible_Layout(mpUi->horizontalLayout_scalings, true);
+		FbxDouble3 lLocalTranslations = lpNode->LclTranslation.Get(),
+			lLocalEulers = lpNode->LclRotation.Get(),
+			lLocalScalings = lpNode->LclScaling.Get();
+		mpUi->lineEdit_translationX->setText(std::to_string(lLocalTranslations[0]).c_str());
+		mpUi->lineEdit_translationY->setText(std::to_string(lLocalTranslations[1]).c_str());
+		mpUi->lineEdit_translationZ->setText(std::to_string(lLocalTranslations[2]).c_str());
+		mpUi->lineEdit_eulerX->setText(std::to_string(lLocalEulers[0]).c_str());
+		mpUi->lineEdit_eulerY->setText(std::to_string(lLocalEulers[1]).c_str());
+		mpUi->lineEdit_eulerZ->setText(std::to_string(lLocalEulers[2]).c_str());
+		mpUi->lineEdit_scalingX->setText(std::to_string(lLocalScalings[0]).c_str());
+		mpUi->lineEdit_scalingY->setText(std::to_string(lLocalScalings[1]).c_str());
+		mpUi->lineEdit_scalingZ->setText(std::to_string(lLocalScalings[2]).c_str());
+	}
+	else
+	{
+		SetVisible_Layout(mpUi->horizontalLayout_nodeType, false);
+		SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
+		SetVisible_Layout(mpUi->horizontalLayout_translations, false);
+		SetVisible_Layout(mpUi->horizontalLayout_eulers, false);
+		SetVisible_Layout(mpUi->horizontalLayout_scalings, false);
+	}
+}
+
+void MainWindow::RefreshUi_NodeAttributes_RotationAttributes(QTreeWidgetItem* const pItem, const int& column)
+{
+	return;
+	FbxNode* lpNode = pItem->data(column, Qt::UserRole).value<FbxNode*>();
+	mpUi->label_nodeName->setText(lpNode->GetName());
+	FbxNodeAttribute* lpNodeAttribute = lpNode->GetNodeAttribute();
+	if (lpNodeAttribute)
+	{
+		mpUi->lineEdit_nodeType->setText(
+			Fbx_EnumTransformation::ENodeTypeToString(lpNodeAttribute->GetAttributeType()).c_str());
+		SetVisible_Layout(mpUi->horizontalLayout_nodeType, true);
+		if (lpNodeAttribute->GetAttributeType() == FbxNodeAttribute::EType::eSkeleton)
+		{
+			SetVisible_Layout(mpUi->horizontalLayout_skeletonType, true);
+			mpUi->lineEdit_skeletonType->setText(
+				Fbx_EnumTransformation::ESkeletonTypeToString(lpNode->GetSkeleton()->GetSkeletonType()).c_str());
+		}
+		else
+		{
+			SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
+		}
+		SetVisible_Layout(mpUi->horizontalLayout_translations, true);
+		SetVisible_Layout(mpUi->horizontalLayout_eulers, true);
+		SetVisible_Layout(mpUi->horizontalLayout_scalings, true);
+		FbxDouble3 lLocalTranslations = lpNode->LclTranslation.Get(),
+			lLocalEulers = lpNode->LclRotation.Get(),
+			lLocalScalings = lpNode->LclScaling.Get();
+		mpUi->lineEdit_translationX->setText(std::to_string(lLocalTranslations[0]).c_str());
+		mpUi->lineEdit_translationY->setText(std::to_string(lLocalTranslations[1]).c_str());
+		mpUi->lineEdit_translationZ->setText(std::to_string(lLocalTranslations[2]).c_str());
+		mpUi->lineEdit_eulerX->setText(std::to_string(lLocalEulers[0]).c_str());
+		mpUi->lineEdit_eulerY->setText(std::to_string(lLocalEulers[1]).c_str());
+		mpUi->lineEdit_eulerZ->setText(std::to_string(lLocalEulers[2]).c_str());
+		mpUi->lineEdit_scalingX->setText(std::to_string(lLocalScalings[0]).c_str());
+		mpUi->lineEdit_scalingY->setText(std::to_string(lLocalScalings[1]).c_str());
+		mpUi->lineEdit_scalingZ->setText(std::to_string(lLocalScalings[2]).c_str());
+	}
+	else
+	{
+		SetVisible_Layout(mpUi->horizontalLayout_nodeType, false);
+		SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
+		SetVisible_Layout(mpUi->horizontalLayout_translations, false);
+		SetVisible_Layout(mpUi->horizontalLayout_eulers, false);
+		SetVisible_Layout(mpUi->horizontalLayout_scalings, false);
+	}
 }
 
 
@@ -194,5 +299,24 @@ void MainWindow::Slot_Settings_FontSizeChanged(const int& fontSize)
 	QFont lFont = this->font();
 	lFont.setPointSize(fontSize);
 	this->setFont(lFont);
+}
+
+
+void MainWindow::SetVisible_Layout(QLayout* const pLayout, const bool& visible)
+{
+	if (!pLayout)
+		return;
+	for (int i = 0, count = pLayout->count(); i < count; i++)
+	{
+		if (pLayout->itemAt(i))
+		{
+			if (pLayout->itemAt(i)->widget())
+				pLayout->itemAt(i)->widget()->setVisible(visible);
+			if (pLayout->itemAt(i)->layout())
+			{
+				SetVisible_Layout(pLayout->itemAt(i)->layout(), visible);
+			}
+		}
+	}
 }
 

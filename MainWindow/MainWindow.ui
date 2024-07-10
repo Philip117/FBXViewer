@@ -49,11 +49,11 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_fileInfo">
+       <widget class="QWidget" name="tab_basicAttributes">
         <attribute name="title">
-         <string>Node Attributes</string>
+         <string>Basic Attributes</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <widget class="QLabel" name="label_nodeName">
            <property name="enabled">
@@ -80,7 +80,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QHBoxLayout" name="horizontalLayout_nodeType" stretch="2,5">
            <item>
             <widget class="QLabel" name="label_2">
              <property name="text">
@@ -90,6 +90,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_nodeType">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string notr="true"/>
              </property>
@@ -101,16 +104,386 @@
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_skeletonType" stretch="2,5">
+           <item>
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string>TextLabel</string>
+              <string>Skeleton Type:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit_2"/>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_skeletonType">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string notr="true"/>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_translations" stretch="2,5">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Translations:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="spacing">
+              <number>1</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLabel" name="label_4">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">X</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_translationX">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLabel" name="label_5">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">Y</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_translationY">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QLabel" name="label_6">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">Z</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_translationZ">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_eulers" stretch="2,5">
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Eulers:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="spacing">
+              <number>1</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">X</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_eulerX">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">Y</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_eulerY">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <widget class="QLabel" name="label_10">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">Z</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_eulerZ">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_scalings" stretch="2,5">
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Scalings:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <property name="spacing">
+              <number>1</number>
+             </property>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QLabel" name="label_12">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">X</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_scalingX">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_12">
+               <item>
+                <widget class="QLabel" name="label_13">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">Y</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_scalingY">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_13">
+               <item>
+                <widget class="QLabel" name="label_14">
+                 <property name="minimumSize">
+                  <size>
+                   <width>16</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string notr="true">Z</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_scalingZ">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string notr="true"/>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
@@ -131,6 +504,177 @@
           </spacer>
          </item>
         </layout>
+       </widget>
+       <widget class="QWidget" name="tab_rotationAttributes">
+        <attribute name="title">
+         <string>Rotation Attributes</string>
+        </attribute>
+        <widget class="QWidget" name="horizontalLayoutWidget_7">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>325</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="2,5">
+          <item>
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>Euler:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <property name="spacing">
+             <number>1</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string notr="true">X</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_10">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <widget class="QLabel" name="label_17">
+                <property name="text">
+                 <string notr="true">Y</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_11">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_17">
+              <item>
+               <widget class="QLabel" name="label_18">
+                <property name="text">
+                 <string notr="true">Z</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_12">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget_8">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>150</y>
+           <width>325</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="2,5">
+          <item>
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Euler:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <property name="spacing">
+             <number>1</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_19">
+              <item>
+               <widget class="QLabel" name="label_20">
+                <property name="text">
+                 <string notr="true">X</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_13">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_20">
+              <item>
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string notr="true">Y</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_14">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_21">
+              <item>
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string notr="true">Z</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_15">
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </widget>
      </widget>

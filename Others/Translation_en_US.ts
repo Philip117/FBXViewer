@@ -4,11 +4,6 @@
 <context>
     <name>MainWindowClass</name>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="54"/>
-        <source>Node Attributes</source>
-        <translation>Node Attributes</translation>
-    </message>
-    <message>
         <location filename="../MainWindow/MainWindow.ui" line="78"/>
         <source>Node Name</source>
         <translation>Node Name</translation>
@@ -19,52 +14,83 @@
         <translation>Node Type:</translation>
     </message>
     <message>
+        <location filename="../MainWindow/MainWindow.ui" line="54"/>
+        <source>Basic Attributes</source>
+        <translation>Basic Attributes</translation>
+    </message>
+    <message>
         <location filename="../MainWindow/MainWindow.ui" line="108"/>
-        <source>TextLabel</source>
+        <source>Skeleton Type:</source>
+        <translation>Skeleton Type:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="129"/>
+        <source>Translations:</source>
+        <translation>Translations:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="213"/>
+        <source>Eulers:</source>
+        <translation>Eulers:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="297"/>
+        <source>Scalings:</source>
+        <translation>Scalings:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="396"/>
+        <source>Rotation Attributes</source>
+        <translation>Rotation Attributes</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="411"/>
+        <location filename="../MainWindow/MainWindow.ui" line="494"/>
+        <source>Euler:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="151"/>
+        <location filename="../MainWindow/MainWindow.ui" line="581"/>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="158"/>
+        <location filename="../MainWindow/MainWindow.ui" line="588"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="164"/>
+        <location filename="../MainWindow/MainWindow.ui" line="594"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="170"/>
+        <location filename="../MainWindow/MainWindow.ui" line="600"/>
         <source>Edit</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="182"/>
+        <location filename="../MainWindow/MainWindow.ui" line="612"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="187"/>
+        <location filename="../MainWindow/MainWindow.ui" line="617"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="195"/>
+        <location filename="../MainWindow/MainWindow.ui" line="625"/>
         <source>About FBXViewer</source>
         <translation>About FBXViewer</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="200"/>
+        <location filename="../MainWindow/MainWindow.ui" line="630"/>
         <source>Statistic</source>
         <translation>Statistic</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="205"/>
+        <location filename="../MainWindow/MainWindow.ui" line="635"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
@@ -100,11 +126,6 @@
         <location filename="../SettingsWidget/SettingsWidget.ui" line="121"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
-    </message>
-    <message>
-        <location filename="../SettingsWidget/SettingsWidget.cpp" line="44"/>
-        <source>Settings were changed but not saved, would you like to save them all before close it?</source>
-        <translation>Settings were changed but not saved, would you like to save them all before close it?</translation>
     </message>
 </context>
 <context>

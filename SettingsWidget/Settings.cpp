@@ -40,8 +40,8 @@ namespace Settings
 		lSettings.setValue("Language", QVariant::fromValue<ELanguage>(mLanguage));
 		lSettings.setValue("FontSize", QVariant::fromValue<unsigned int>(mFontSize));
 		lSettings.setValue("LastFileDir", mLastFileDir);
-		lSettings.sync();
 		lSettings.endGroup();
+		lSettings.sync();
 	}
 
 	Settings& Settings::operator=(const Settings& settings)

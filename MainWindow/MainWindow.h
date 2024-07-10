@@ -23,8 +23,10 @@ private:
 	void RefreshUi();
 	void	RefreshUi_TreeWidget();
 	void	RefreshUi_TabWidget();
-	void	RefreshUi_NodeAttribute();
-	void	RefreshUi_NodeAttribute(QTreeWidgetItem* pItem, int column);
+	void	RefreshUi_NodeAttributes();
+	void	RefreshUi_NodeAttributes(QTreeWidgetItem* const pItem, const int& column);
+	void		RefreshUi_NodeAttributes_BasicAttributes(QTreeWidgetItem* const pItem, const int& column);
+	void		RefreshUi_NodeAttributes_RotationAttributes(QTreeWidgetItem* const pItem, const int& column);
 
 public slots:
 	void Slot_Open();
@@ -37,6 +39,7 @@ public slots:
 	void Slot_Settings_FontSizeChanged(const int& fontSize);
 
 private:
+	void SetVisible_Layout(QLayout* const pLayout, const bool& visible);
 
 	Ui::MainWindowClass* mpUi;
 	FbxManager* mpManager;
