@@ -19,78 +19,97 @@
         <translation>Basic Attributes</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="108"/>
+        <location filename="../MainWindow/MainWindow.ui" line="111"/>
         <source>Skeleton Type:</source>
         <translation>Skeleton Type:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="129"/>
+        <location filename="../MainWindow/MainWindow.ui" line="135"/>
         <source>Translations:</source>
         <translation>Translations:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="213"/>
+        <location filename="../MainWindow/MainWindow.ui" line="255"/>
         <source>Eulers:</source>
         <translation>Eulers:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="297"/>
+        <location filename="../MainWindow/MainWindow.ui" line="375"/>
         <source>Scalings:</source>
         <translation>Scalings:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="396"/>
+        <location filename="../MainWindow/MainWindow.ui" line="510"/>
         <source>Rotation Attributes</source>
         <translation>Rotation Attributes</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="411"/>
-        <location filename="../MainWindow/MainWindow.ui" line="494"/>
-        <source>Euler:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../MainWindow/MainWindow.ui" line="518"/>
+        <source>Rotation Order:</source>
+        <translation>Rotation Order:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="581"/>
+        <location filename="../MainWindow/MainWindow.ui" line="542"/>
+        <source>LclRotation:</source>
+        <translation>LclRotation:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="626"/>
+        <source>Rotation Offset:</source>
+        <translation>Rotation Offset:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="710"/>
+        <source>PreRotation:</source>
+        <translation>PreRotation:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="794"/>
+        <source>PostRotation:</source>
+        <translation>PostRotation:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="904"/>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="588"/>
+        <location filename="../MainWindow/MainWindow.ui" line="911"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="594"/>
+        <location filename="../MainWindow/MainWindow.ui" line="917"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="600"/>
+        <location filename="../MainWindow/MainWindow.ui" line="923"/>
         <source>Edit</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="612"/>
+        <location filename="../MainWindow/MainWindow.ui" line="935"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="617"/>
+        <location filename="../MainWindow/MainWindow.ui" line="940"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="625"/>
+        <location filename="../MainWindow/MainWindow.ui" line="948"/>
         <source>About FBXViewer</source>
         <translation>About FBXViewer</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="630"/>
+        <location filename="../MainWindow/MainWindow.ui" line="953"/>
         <source>Statistic</source>
         <translation>Statistic</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="635"/>
+        <location filename="../MainWindow/MainWindow.ui" line="958"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
@@ -126,6 +145,11 @@
         <location filename="../SettingsWidget/SettingsWidget.ui" line="121"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="../SettingsWidget/SettingsWidget.cpp" line="44"/>
+        <source>Settings were changed but not saved, would you like to save them all before close it?</source>
+        <translation>Settings were changed but not saved, would you like to save them all before close it?</translation>
     </message>
 </context>
 <context>
