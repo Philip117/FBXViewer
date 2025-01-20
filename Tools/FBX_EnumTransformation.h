@@ -21,4 +21,10 @@ namespace Fbx_EnumTransformation
 	std::string EPivorSetToString(const FbxNode::EPivotSet& pivot);
 
 	std::string EOrderToString(const FbxEuler::EOrder& order);
+
+	std::string EPivotSetToString(const FbxNode::EPivotSet& pivot);
+
+	std::string EPivotStateToString(const FbxNode::EPivotState& pivotState);
+
+	std::string EInheritTypeToString(const FbxTransform::EInheritType& inheritType);
 }

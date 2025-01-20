@@ -4,112 +4,142 @@
 <context>
     <name>MainWindowClass</name>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="78"/>
+        <location filename="../MainWindow/MainWindow.ui" line="96"/>
         <source>Node Name</source>
         <translation>节点名称</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="87"/>
+        <location filename="../MainWindow/MainWindow.ui" line="105"/>
         <source>Node Type:</source>
         <translation>节点类型:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="54"/>
+        <location filename="../MainWindow/MainWindow.ui" line="72"/>
         <source>Basic Attributes</source>
         <translation>基础属性</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="111"/>
+        <location filename="../MainWindow/MainWindow.ui" line="129"/>
         <source>Skeleton Type:</source>
         <translation>关节类型:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="135"/>
+        <location filename="../MainWindow/MainWindow.ui" line="153"/>
         <source>Translations:</source>
         <translation>坐标:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="255"/>
+        <location filename="../MainWindow/MainWindow.ui" line="273"/>
         <source>Eulers:</source>
         <translation>欧拉角:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="375"/>
+        <location filename="../MainWindow/MainWindow.ui" line="393"/>
         <source>Scalings:</source>
         <translation>缩放:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="510"/>
+        <location filename="../MainWindow/MainWindow.ui" line="528"/>
         <source>Rotation Attributes</source>
         <translation>旋转属性</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="518"/>
+        <location filename="../MainWindow/MainWindow.ui" line="536"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1156"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1633"/>
         <source>Rotation Order:</source>
         <translation>旋转顺序:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="542"/>
+        <location filename="../MainWindow/MainWindow.ui" line="560"/>
         <source>LclRotation:</source>
         <translation>局部旋转:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="626"/>
+        <location filename="../MainWindow/MainWindow.ui" line="671"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1180"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1657"/>
         <source>Rotation Offset:</source>
         <translation>旋转补偿:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="710"/>
+        <location filename="../MainWindow/MainWindow.ui" line="782"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1291"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1768"/>
+        <source>Geometric Rotation:</source>
+        <translation>几何旋转:</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="893"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1402"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1879"/>
         <source>PreRotation:</source>
         <translation>预旋转:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="794"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1004"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1513"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1990"/>
         <source>PostRotation:</source>
         <translation>后旋转:</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="904"/>
+        <location filename="../MainWindow/MainWindow.ui" line="1127"/>
+        <source>Pivot Related</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="1148"/>
+        <source>Source Pivot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="1625"/>
+        <source>Destination Pivot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MainWindow/MainWindow.ui" line="2121"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="911"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2128"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="917"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2134"/>
         <source>Info</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="923"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2140"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="935"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2152"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="940"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2157"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="948"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2165"/>
         <source>About FBXViewer</source>
         <translation>关于 FBXViewer</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="953"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2170"/>
         <source>Statistic</source>
         <translation>数据</translation>
     </message>
     <message>
-        <location filename="../MainWindow/MainWindow.ui" line="958"/>
+        <location filename="../MainWindow/MainWindow.ui" line="2175"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>

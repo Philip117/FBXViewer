@@ -1,5 +1,6 @@
 #include <queue>
 #include <string>
+#include <algorithm>
 #include "FBX_Extraction.h"
 
 

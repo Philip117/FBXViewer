@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget* parent)
 	, mpUi(new Ui::MainWindowClass())
 {
 	mpUi->setupUi(this);
+	mpWidget_rotationAttributes = mpUi->tab_rotationAttributes;
+	mpWidget_pivotAttributes = mpUi->tab_pivotAttributes;
+	mpUi->tabWidget->removeTab(2);
+	mpUi->tabWidget->removeTab(1);
 	mpManager = nullptr;
 	mpScene = nullptr;
 	Settings::Settings lSettings;
@@ -23,6 +27,8 @@ MainWindow::MainWindow(QWidget* parent)
 	Fbx_Base::InitializeManagerAndScene(mpManager, mpScene);
 	mpWaitingDialog = new WaitingDialog(this, false, true);
 	mpSettingsWidget = new SettingsWidget(this);
+
+	RefreshUi_NodeAttributes();
 
 	connect(mpUi->action_open, &QAction::triggered, this, &MainWindow::Slot_Open);
 	connect(mpUi->action_exit, &QAction::triggered, this, &MainWindow::Slot_Exit);
@@ -35,6 +41,13 @@ MainWindow::MainWindow(QWidget* parent)
 
 	connect(mpUi->treeWidget, &QTreeWidget::itemClicked, this,
 		static_cast<void(MainWindow::*)(QTreeWidgetItem* const pItem, const int& column)> (&MainWindow::RefreshUi_NodeAttributes));
+
+	connect(mpUi->pushButton_translations_coordSwitch, &QPushButton::clicked, this,
+		&MainWindow::Slot_BasicAttributes_Translations_CoordSwitch, Qt::DirectConnection);
+	connect(mpUi->pushButton_eulers_coordSwitch, &QPushButton::clicked, this,
+		&MainWindow::Slot_BasicAttributes_Eulers_CoordSwitch, Qt::DirectConnection);
+	connect(mpUi->pushButton_scalings_coordSwitch, &QPushButton::clicked, this,
+		&MainWindow::Slot_BasicAttributes_Scalings_CoordSwitch, Qt::DirectConnection);
 }
 
 MainWindow::~MainWindow()
@@ -124,7 +137,23 @@ void MainWindow::RefreshUi_NodeAttributes()
 void MainWindow::RefreshUi_NodeAttributes(QTreeWidgetItem* const pItem, const int& column)
 {
 	RefreshUi_NodeAttributes_BasicAttributes(pItem, column);
-	RefreshUi_NodeAttributes_RotationAttributes(pItem, column);
+	FbxNode* lpNode = pItem->data(column, Qt::UserRole).value<FbxNode*>();
+	FbxNodeAttribute* lpNodeAttribute = lpNode->GetNodeAttribute();
+	if (lpNodeAttribute && (lpNodeAttribute->GetAttributeType() == FbxNodeAttribute::EType::eSkeleton
+		|| lpNodeAttribute->GetAttributeType() == FbxNodeAttribute::EType::eMesh))
+	{
+		if(!mpUi->tabWidget->isTabVisible(1))
+		mpUi->tabWidget->addTab(mpWidget_rotationAttributes,"Rotation Attributes");
+		if (!mpUi->tabWidget->isTabVisible(2))
+			mpUi->tabWidget->addTab(mpWidget_pivotAttributes, "Pivot Related");
+		RefreshUi_NodeAttributes_RotationAttributes(pItem, column);
+		RefreshUi_NodeAttributes_PivotAttributes(pItem, column);
+	}
+	else
+	{
+		mpUi->tabWidget->removeTab(2);
+		mpUi->tabWidget->removeTab(1);
+	}
 }
 
 void MainWindow::RefreshUi_NodeAttributes_BasicAttributes(QTreeWidgetItem* const pItem, const int& column)
@@ -132,37 +161,62 @@ void MainWindow::RefreshUi_NodeAttributes_BasicAttributes(QTreeWidgetItem* const
 	FbxNode* lpNode = pItem->data(column, Qt::UserRole).value<FbxNode*>();
 	mpUi->label_nodeName->setVisible(true);
 	mpUi->label_nodeName->setText(lpNode->GetName());
+
 	FbxNodeAttribute* lpNodeAttribute = lpNode->GetNodeAttribute();
 	if (lpNodeAttribute)
 	{
 		SetVisible_Layout(mpUi->horizontalLayout_nodeType, true);
-		mpUi->lineEdit_nodeType->setText(
-			Fbx_EnumTransformation::ENodeTypeToString(lpNodeAttribute->GetAttributeType()).c_str());
+		mpUi->lineEdit_nodeType->setText(QString::fromStdString(
+			Fbx_EnumTransformation::ENodeTypeToString(lpNodeAttribute->GetAttributeType())));
 		if (lpNodeAttribute->GetAttributeType() == FbxNodeAttribute::EType::eSkeleton)
 		{
 			SetVisible_Layout(mpUi->horizontalLayout_skeletonType, true);
-			mpUi->lineEdit_skeletonType->setText(
-				Fbx_EnumTransformation::ESkeletonTypeToString(lpNode->GetSkeleton()->GetSkeletonType()).c_str());
+			mpUi->lineEdit_skeletonType->setText(QString::fromStdString(
+				Fbx_EnumTransformation::ESkeletonTypeToString(lpNode->GetSkeleton()->GetSkeletonType())));
 		}
 		else
 		{
 			SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
 		}
+
 		SetVisible_Layout(mpUi->horizontalLayout_translations, true);
 		SetVisible_Layout(mpUi->horizontalLayout_eulers, true);
 		SetVisible_Layout(mpUi->horizontalLayout_scalings, true);
-		FbxDouble3 lLocalTranslations = lpNode->LclTranslation.Get(),
-			lLocalEulers = lpNode->LclRotation.Get(),
-			lLocalScalings = lpNode->LclScaling.Get();
-		mpUi->lineEdit_translationX->setText(std::to_string(lLocalTranslations[0]).c_str());
-		mpUi->lineEdit_translationY->setText(std::to_string(lLocalTranslations[1]).c_str());
-		mpUi->lineEdit_translationZ->setText(std::to_string(lLocalTranslations[2]).c_str());
-		mpUi->lineEdit_eulerX->setText(std::to_string(lLocalEulers[0]).c_str());
-		mpUi->lineEdit_eulerY->setText(std::to_string(lLocalEulers[1]).c_str());
-		mpUi->lineEdit_eulerZ->setText(std::to_string(lLocalEulers[2]).c_str());
-		mpUi->lineEdit_scalingX->setText(std::to_string(lLocalScalings[0]).c_str());
-		mpUi->lineEdit_scalingY->setText(std::to_string(lLocalScalings[1]).c_str());
-		mpUi->lineEdit_scalingZ->setText(std::to_string(lLocalScalings[2]).c_str());
+
+		FbxDouble3 lTranslations,
+			lEulers,
+			lScalings;
+		FbxAMatrix lTransform = lpNode->EvaluateLocalTransform();
+		if (mpUi->pushButton_translations_coordSwitch->text() == "L")
+			lTranslations = lTransform.GetT();
+		if (mpUi->pushButton_eulers_coordSwitch->text() == "L")
+			lTranslations = lTransform.GetT();
+		if(mpUi->pushButton_scalings_coordSwitch->text() == "L")
+			lScalings = lTransform.GetS();
+		lTransform = lpNode->EvaluateGlobalTransform();
+		if (mpUi->pushButton_translations_coordSwitch->text() == "W")
+			lTranslations = lTransform.GetT();
+		if (mpUi->pushButton_eulers_coordSwitch->text() == "W")
+			lTranslations = lTransform.GetT();
+		if (mpUi->pushButton_scalings_coordSwitch->text() == "W")
+			lScalings = lTransform.GetS();
+
+		mpUi->lineEdit_translationX->setText(QString::number(lTranslations[0]));
+		mpUi->lineEdit_translationY->setText(QString::number(lTranslations[1]));
+		mpUi->lineEdit_translationZ->setText(QString::number(lTranslations[2]));
+		mpUi->lineEdit_eulerX->setText(QString::number(lEulers[0]));
+		mpUi->lineEdit_eulerY->setText(QString::number(lEulers[1]));
+		mpUi->lineEdit_eulerZ->setText(QString::number(lEulers[2]));
+		mpUi->lineEdit_scalingX->setText(QString::number(lScalings[0]));
+		mpUi->lineEdit_scalingY->setText(QString::number(lScalings[1]));
+		mpUi->lineEdit_scalingZ->setText(QString::number(lScalings[2]));
+
+		SetVisible_Layout(mpUi->horizontalLayout_inheritType, true);
+
+		FbxTransform::EInheritType lInheritType;
+		lpNode->GetTransformationInheritType(lInheritType);
+		mpUi->lineEdit_inheritType->setText(QString::fromStdString(
+			Fbx_EnumTransformation::EInheritTypeToString(lInheritType)));
 	}
 	else
 	{
@@ -171,6 +225,8 @@ void MainWindow::RefreshUi_NodeAttributes_BasicAttributes(QTreeWidgetItem* const
 		SetVisible_Layout(mpUi->horizontalLayout_translations, false);
 		SetVisible_Layout(mpUi->horizontalLayout_eulers, false);
 		SetVisible_Layout(mpUi->horizontalLayout_scalings, false);
+		SetVisible_Layout(mpUi->horizontalLayout_inheritType, false);
+
 	}
 }
 
@@ -181,61 +237,101 @@ void MainWindow::RefreshUi_NodeAttributes_RotationAttributes(QTreeWidgetItem* co
 	FbxNodeAttribute* lpNodeAttribute = lpNode->GetNodeAttribute();
 	if (lpNodeAttribute)
 	{
-		FbxNode::EPivotSet lPivotSet;
-		FbxVector4 lVector4;
-		FbxDouble3 lDouble3;
+		FbxNode::EPivotSet lPivotSet = FbxNode::eSourcePivot;
+		
 		FbxEuler::EOrder lOrder;
 		lOrder = lpNode->RotationOrder.Get();
-		mpUi->lineEdit_rotationOrder->setText(Fbx_EnumTransformation::EOrderToString(lOrder).c_str());
-		lDouble3 = lpNode->LclRotation.Get();
-		mpUi->lineEdit_lclRotationX->setText(std::to_string(lDouble3[0]).c_str());
-		mpUi->lineEdit_lclRotationY->setText(std::to_string(lDouble3[1]).c_str());
-		mpUi->lineEdit_lclRotationZ->setText(std::to_string(lDouble3[2]).c_str());
-		lDouble3 = lpNode->RotationOffset.Get();
-		mpUi->lineEdit_rotationOffsetX->setText(std::to_string(lDouble3[0]).c_str());
-		mpUi->lineEdit_rotationOffsetY->setText(std::to_string(lDouble3[1]).c_str());
-		mpUi->lineEdit_rotationOffsetZ->setText(std::to_string(lDouble3[2]).c_str());
-		lDouble3 = lpNode->PreRotation.Get();
-		mpUi->lineEdit_preRotationX->setText(std::to_string(lDouble3[0]).c_str());
-		mpUi->lineEdit_preRotationY->setText(std::to_string(lDouble3[1]).c_str());
-		mpUi->lineEdit_preRotationZ->setText(std::to_string(lDouble3[2]).c_str());
-		lDouble3 = lpNode->PostRotation.Get();
-		mpUi->lineEdit_postRotationX->setText(std::to_string(lDouble3[0]).c_str());
-		mpUi->lineEdit_postRotationY->setText(std::to_string(lDouble3[1]).c_str());
-		mpUi->lineEdit_postRotationZ->setText(std::to_string(lDouble3[2]).c_str());
-		for (int i = 0; i < 2; i++)
-		{
-			lpNode->GetRotationOrder(lPivotSet, lOrder);
-			lPivotSet = static_cast<FbxNode::EPivotSet>(i);
-			lVector4 = lpNode->GetRotationOffset(lPivotSet);
-			lVector4 = lpNode->GetGeometricRotation(lPivotSet);
-			lpNode->GetPreRotation(lPivotSet);
-			lpNode->GetPostRotation(lPivotSet);
-		}
+		mpUi->lineEdit_rotationOrder->setText(QString::fromStdString(
+			Fbx_EnumTransformation::EOrderToString(lOrder)));
 
-		SetVisible_Layout(mpUi->horizontalLayout_translations, true);
-		SetVisible_Layout(mpUi->horizontalLayout_eulers, true);
-		SetVisible_Layout(mpUi->horizontalLayout_scalings, true);
-		FbxDouble3 lLocalTranslations = lpNode->LclTranslation.Get(),
-			lLocalEulers = lpNode->LclRotation.Get(),
-			lLocalScalings = lpNode->LclScaling.Get();
-		mpUi->lineEdit_translationX->setText(std::to_string(lLocalTranslations[0]).c_str());
-		mpUi->lineEdit_translationY->setText(std::to_string(lLocalTranslations[1]).c_str());
-		mpUi->lineEdit_translationZ->setText(std::to_string(lLocalTranslations[2]).c_str());
-		mpUi->lineEdit_eulerX->setText(std::to_string(lLocalEulers[0]).c_str());
-		mpUi->lineEdit_eulerY->setText(std::to_string(lLocalEulers[1]).c_str());
-		mpUi->lineEdit_eulerZ->setText(std::to_string(lLocalEulers[2]).c_str());
-		mpUi->lineEdit_scalingX->setText(std::to_string(lLocalScalings[0]).c_str());
-		mpUi->lineEdit_scalingY->setText(std::to_string(lLocalScalings[1]).c_str());
-		mpUi->lineEdit_scalingZ->setText(std::to_string(lLocalScalings[2]).c_str());
+		FbxDouble3 lDouble3 = lpNode->LclRotation.Get();
+		mpUi->lineEdit_lclRotationX->setText(QString::number(lDouble3[0]));
+		mpUi->lineEdit_lclRotationY->setText(QString::number(lDouble3[1]));
+		mpUi->lineEdit_lclRotationZ->setText(QString::number(lDouble3[2]));
+		lDouble3 = lpNode->RotationOffset.Get();
+		mpUi->lineEdit_rotationOffsetX->setText(QString::number(lDouble3[0]));
+		mpUi->lineEdit_rotationOffsetY->setText(QString::number(lDouble3[1]));
+		mpUi->lineEdit_rotationOffsetZ->setText(QString::number(lDouble3[2]));
+		lDouble3 = lpNode->GeometricRotation.Get();
+		mpUi->lineEdit_geometricRotationX->setText(QString::number(lDouble3[0]));
+		mpUi->lineEdit_geometricRotationY->setText(QString::number(lDouble3[1]));
+		mpUi->lineEdit_geometricRotationZ->setText(QString::number(lDouble3[2]));
+		lDouble3 = lpNode->PreRotation.Get();
+		mpUi->lineEdit_preRotationX->setText(QString::number(lDouble3[0]));
+		mpUi->lineEdit_preRotationY->setText(QString::number(lDouble3[1]));
+		mpUi->lineEdit_preRotationZ->setText(QString::number(lDouble3[2]));
+		lDouble3 = lpNode->PostRotation.Get();
+		mpUi->lineEdit_postRotationX->setText(QString::number(lDouble3[0]));
+		mpUi->lineEdit_postRotationY->setText(QString::number(lDouble3[1]));
+		mpUi->lineEdit_postRotationZ->setText(QString::number(lDouble3[2]));
+
+		FbxLimits lLimits= lpNode->GetRotationLimits();
+		bool lIsActive = lLimits.GetActive(),
+			lIsActives[3] = { false };
+		lLimits.GetMaxActive(lIsActives[0], lIsActives[1], lIsActives[2]);
+		lLimits.GetMinActive(lIsActives[0], lIsActives[1], lIsActives[2]);
+		lDouble3 = lLimits.GetMax();
+		lDouble3 = lLimits.GetMin();
+		int a = 0;
 	}
-	else
+}
+
+void MainWindow::RefreshUi_NodeAttributes_PivotAttributes(QTreeWidgetItem* const pItem, const int& column)
+{
+	FbxNode* lpNode = pItem->data(column, Qt::UserRole).value<FbxNode*>();
+	FbxNodeAttribute* lpNodeAttribute = lpNode->GetNodeAttribute();
+	if (lpNodeAttribute)
 	{
-		SetVisible_Layout(mpUi->horizontalLayout_nodeType, false);
-		SetVisible_Layout(mpUi->horizontalLayout_skeletonType, false);
-		SetVisible_Layout(mpUi->horizontalLayout_translations, false);
-		SetVisible_Layout(mpUi->horizontalLayout_eulers, false);
-		SetVisible_Layout(mpUi->horizontalLayout_scalings, false);
+		FbxNode::EPivotSet lPivotSet = FbxNode::eSourcePivot;
+		FbxVector4 lVector4;
+		FbxDouble3 lDouble3;
+		// FbxNode::GetPivots() 得到的 Pivots，由 Pivots::GetRotationOffset(id) 和
+		// FbxNode::GetRotationOffset(pivotSet) 好像不是一个东西
+		// FbxNode::Pivots lPivots = lpNode->GetPivots();
+		// lPivots.GetRotationOffset(0);
+
+		lPivotSet = FbxNode::EPivotSet::eSourcePivot;
+		FbxNode::EPivotState lPivotState;
+		lpNode->GetPivotState(lPivotSet, lPivotState);
+		mpUi->lineEdit_sourcePivot_pivotState->setText(QString::fromStdString(
+			Fbx_EnumTransformation::EPivotStateToString(lPivotState)));
+		lVector4 = lpNode->GetRotationOffset(lPivotSet);
+		mpUi->lineEdit_sourcePivot_rotationOffsetX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_sourcePivot_rotationOffsetY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_sourcePivot_rotationOffsetZ->setText(QString::number(lVector4[2]));
+		lVector4 = lpNode->GetGeometricRotation(lPivotSet);
+		mpUi->lineEdit_sourcePivot_geometricRotationX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_sourcePivot_geometricRotationY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_sourcePivot_geometricRotationZ->setText(QString::number(lVector4[2]));
+		lVector4 = lpNode->GetPreRotation(lPivotSet);
+		mpUi->lineEdit_sourcePivot_preRotationX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_sourcePivot_preRotationY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_sourcePivot_preRotationZ->setText(QString::number(lVector4[2]));
+		lVector4 = lpNode->GetPostRotation(lPivotSet);
+		mpUi->lineEdit_sourcePivot_postRotationX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_sourcePivot_postRotationY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_sourcePivot_postRotationZ->setText(QString::number(lVector4[2]));
+
+		lPivotSet = FbxNode::EPivotSet::eDestinationPivot;
+		lpNode->GetPivotState(lPivotSet, lPivotState);
+		mpUi->lineEdit_destinationPivot_pivotState->setText(QString::fromStdString(
+			Fbx_EnumTransformation::EPivotStateToString(lPivotState)));
+		lVector4 = lpNode->GetRotationOffset(lPivotSet);
+		mpUi->lineEdit_destinationPivot_rotationOffsetX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_destinationPivot_rotationOffsetY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_destinationPivot_rotationOffsetZ->setText(QString::number(lVector4[2]));
+		lVector4 = lpNode->GetGeometricRotation(lPivotSet);
+		mpUi->lineEdit_destinationPivot_geometricRotationX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_destinationPivot_geometricRotationY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_destinationPivot_geometricRotationZ->setText(QString::number(lVector4[2]));
+		lVector4 = lpNode->GetPreRotation(lPivotSet);
+		mpUi->lineEdit_destinationPivot_preRotationX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_destinationPivot_preRotationY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_destinationPivot_preRotationZ->setText(QString::number(lVector4[2]));
+		lVector4 = lpNode->GetPostRotation(lPivotSet);
+		mpUi->lineEdit_destinationPivot_postRotationX->setText(QString::number(lVector4[0]));
+		mpUi->lineEdit_destinationPivot_postRotationY->setText(QString::number(lVector4[1]));
+		mpUi->lineEdit_destinationPivot_postRotationZ->setText(QString::number(lVector4[2]));
 	}
 }
 
@@ -317,6 +413,33 @@ void MainWindow::Slot_Settings_FontSizeChanged(const int& fontSize)
 	QFont lFont = this->font();
 	lFont.setPointSize(fontSize);
 	this->setFont(lFont);
+}
+
+void MainWindow::Slot_BasicAttributes_Translations_CoordSwitch()
+{
+	if (mpUi->pushButton_translations_coordSwitch->text() == "L")
+		mpUi->pushButton_translations_coordSwitch->setText("W");
+	else
+		mpUi->pushButton_translations_coordSwitch->setText("L");
+	RefreshUi_NodeAttributes_BasicAttributes(mpUi->treeWidget->currentItem(), 0);
+}
+
+void MainWindow::Slot_BasicAttributes_Eulers_CoordSwitch()
+{
+	if (mpUi->pushButton_eulers_coordSwitch->text() == "L")
+		mpUi->pushButton_eulers_coordSwitch->setText("W");
+	else
+		mpUi->pushButton_eulers_coordSwitch->setText("L");
+	RefreshUi_NodeAttributes_BasicAttributes(mpUi->treeWidget->currentItem(), 0);
+}
+
+void MainWindow::Slot_BasicAttributes_Scalings_CoordSwitch()
+{
+	if (mpUi->pushButton_scalings_coordSwitch->text() == "L")
+		mpUi->pushButton_scalings_coordSwitch->setText("W");
+	else
+		mpUi->pushButton_scalings_coordSwitch->setText("L");
+	RefreshUi_NodeAttributes_BasicAttributes(mpUi->treeWidget->currentItem(), 0);
 }
 
 

@@ -239,4 +239,48 @@ namespace Fbx_EnumTransformation
 		else
 			return std::string("Error");
 	}
+
+	std::string EPivotSetToString(const FbxNode::EPivotSet& pivot)
+	{
+		typedef FbxNode::EPivotSet EPivotSet;
+		switch (pivot)
+		{
+		case EPivotSet::eSourcePivot:
+			return std::string("eSourcePivot");
+		case EPivotSet::eDestinationPivot:
+			return std::string("eDestinationPivot");
+		default:			
+			return std::string("Error");
+		}
+	}
+	
+	std::string EPivotStateToString(const FbxNode::EPivotState& pivotState)
+	{
+		typedef FbxNode::EPivotState EPivotState;
+		switch (pivotState)
+		{
+		case EPivotState::ePivotActive:
+			return std::string("ePivotActive");
+		case EPivotState::ePivotReference:
+			return std::string("ePivotReference");
+		default:
+			return std::string("Error");
+		}
+	}
+
+	std::string EInheritTypeToString(const FbxTransform::EInheritType& pivotState)
+	{
+		typedef FbxTransform::EInheritType EInheritType;
+		switch (pivotState)
+		{
+		case EInheritType::eInheritRrs:
+			return std::string("eInheritRrs");
+		case EInheritType::eInheritRrSs:
+			return std::string("eInheritRrSs");
+		case EInheritType::eInheritRSrs:
+			return std::string("eInheritRSrs");
+		default:
+			return std::string("Error");
+		}
+	}
 }
